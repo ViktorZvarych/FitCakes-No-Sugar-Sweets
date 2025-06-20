@@ -208,6 +208,7 @@ button:hover {
   top: 100%;
   left: 0;
   width: 100%;
+  max-width: 100vw;
   margin-top: 10px;
   /* Max-height allows it to expand based on content, but not exceed viewport height */
   max-height: calc(
@@ -317,8 +318,8 @@ button:hover {
   display: flex; /* Use flexbox for centering text within the button */
   justify-content: center; /* Center text horizontally */
   align-items: center; /* Center text vertically */
-  padding: 15px 10px; /* Adjust padding for button look */
-  font-size: 1.1em; /* Slightly adjust font size if needed */
+  padding: 15px 8px; /* Adjust padding for button look */
+  font-size: 1rem; /* Slightly adjust font size if needed */
   color: var(--button-text);
   background-color: var(--button-bg); /* Add a background to make them look like buttons */
   border: 1px solid var(--border-color); /* Add a border */

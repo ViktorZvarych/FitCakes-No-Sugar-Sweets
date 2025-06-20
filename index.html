@@ -15,6 +15,8 @@
     <title>FitCakes - корисні солодощі без цукру</title>
 
     <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -32,7 +34,6 @@
       sizes="16x16"
       href="/img/favicons/favicon-16x16.png"
     />
-    <link rel="manifest" href="/site.webmanifest" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css" />
@@ -357,7 +358,7 @@
             <strong>КБЖВ: <span id="totalKBZHW">0/0/0/0</span></strong>
           </p>
         </div>
-        
+
         <form
           id="orderForm"
           class="order-form"
@@ -385,12 +386,7 @@
 
           <div class="order-form-item">
             <label for="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              autocomplete="email"
-            />
+            <input type="email" name="email" id="email" autocomplete="email" />
           </div>
 
           <div class="order-form-item">
@@ -398,7 +394,13 @@
             <input type="tel" name="tel" id="tel" required autocomplete="tel" />
           </div>
 
-          <input type="hidden" name="website" id="website" required value="fitcakes.info" />
+          <input
+            type="hidden"
+            name="website"
+            id="website"
+            required
+            value="fitcakes.info"
+          />
 
           <input
             type="checkbox"
