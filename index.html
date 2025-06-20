@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Вебсайт FitCakes - Корисні та смачні солодощі без цукру - для Вашого здоров'я та фігури!"
+    />
+    <meta
+      name="keywords"
+      content="кондитер львів, без цукру, корисні солодощі без цукру, корисні солодощі, корисне солодке, торти без цукру, десерти без цукру, мадлени без цукру, випічка без цукру Львів, солодощі без цукру Львів, торти без цукру Львів, десерти без цукру Львів, мадлени без цукру Львів, моті без цукру Львів"
+    />
+    <!-- Title -->
+    <title>FitCakes - корисні солодощі без цукру</title>
+
+    <!-- Favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/img/favicons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/img/favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/img/favicons/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="header__container">
+        <div class="header__logo">
+          <a href="/">FitCakes</a>
+        </div>
+        <nav class="header__nav">
+          <ul class="header__menu">
+            <li>
+              <a
+                href="#"
+                data-modal-target="likedProductsModal"
+                aria-label="Обрані товари"
+                id="openLikedProductsModalBtn"
+                class="menu-icon-button"
+              >
+                <i class="fas fa-heart"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                data-modal-target="contacts-modal"
+                aria-label="Контакти"
+                ><i class="fas fa-phone"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                id="theme-toggle"
+                class="theme-toggle-btn"
+                aria-label="Змінити тему"
+              >
+                <i class="fas fa-moon"></i>
+              </a>
+            </li>
+            <li>
+              <a
+                href="#"
+                data-modal-target="cart-modal"
+                class="cart-icon"
+                aria-label="Кошик"
+              >
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+              </a>
+            </li>
+
+            <li class="burger-menu-item">
+              <button class="burger-menu-btn" aria-label="Відкрити меню">
+                <i class="fas fa-bars"></i>
+              </button>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+          <div class="mobile-menu-content" id="mobile-menu-content">
+            <div class="mobile-menu-icons"></div>
+            <ul class="mobile-menu-categories"></ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="parallax-section">
+        <svg
+          class="parallax-svg"
+          version="1.0"
+          xmlns="http://www.w3.org/2000/svg"
+          height="200"
+          viewBox="0 0 381.000000 485.000000"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <g
+            transform="translate(0.000000,485.000000) scale(0.100000,-0.100000)"
+            stroke="none"
+          >
+            <path
+              fill="var(--accent-color)"
+              d="M3170 4775 c-276 -68 -512 -318 -761 -805 -74 -145 -122 -250 -175
+                    -387 -15 -40 -31 -73 -35 -73 -3 0 -21 42 -40 93 -32 89 -91 212 -147 306 -55
+                    93 -318 338 -399 373 -15 7 -35 17 -43 24 -31 24 -158 54 -229 54 -177 0 -294
+                    -88 -365 -275 l-31 -80 0 -355 c0 -295 3 -369 17 -440 10 -47 24 -132 32 -190
+                    19 -137 81 -420 113 -520 8 -25 23 -74 33 -110 10 -36 33 -103 50 -150 17 -47
+                    37 -105 44 -130 7 -25 18 -54 24 -65 15 -26 72 -161 72 -170 0 -7 134 -288
+                    152 -320 7 -11 27 -49 47 -85 19 -36 56 -98 83 -139 66 -103 65 -118 -19 -206
+                    -37 -38 -110 -117 -164 -175 -89 -97 -292 -300 -399 -400 -52 -48 -291 -243
+                    -344 -280 -20 -14 -50 -37 -66 -53 -47 -43 -11 -46 52 -4 29 19 64 40 78 47
+                    63 33 304 223 434 344 50 46 109 98 131 117 21 19 80 73 130 120 49 48 112
+                    106 140 129 27 23 57 53 67 66 11 13 32 33 48 44 49 35 73 16 190 -154 86
+                    -125 202 -238 222 -218 9 9 7 16 -4 29 -8 10 -30 45 -49 78 -34 61 -65 111
+                    -96 155 -45 64 -123 201 -123 217 0 10 26 41 57 68 131 114 606 599 702 715
+                    137 166 138 168 196 251 28 39 68 94 90 122 60 77 298 439 389 592 81 136 209
+                    386 236 460 10 28 29 82 44 120 14 39 42 126 61 195 19 69 42 148 49 175 8 28
+                    19 75 25 105 6 30 18 93 27 140 54 278 -26 498 -223 610 -84 48 -213 62 -323
+                    35z m167 -186 c62 -23 103 -61 135 -127 31 -62 32 -71 31 -171 0 -68 -8 -137
+                    -21 -191 -11 -47 -23 -103 -26 -125 -4 -22 -13 -60 -21 -85 -8 -25 -28 -97
+                    -45 -160 -17 -63 -37 -128 -45 -145 -8 -16 -23 -55 -34 -85 -41 -117 -54 -149
+                    -107 -255 -54 -110 -181 -332 -233 -410 -15 -22 -39 -58 -53 -80 -56 -89 -121
+                    -191 -134 -210 -8 -11 -35 -51 -61 -89 -27 -38 -57 -82 -68 -96 -11 -15 -29
+                    -40 -40 -56 -11 -16 -47 -64 -80 -108 -33 -43 -69 -91 -80 -106 -21 -29 -143
+                    -171 -155 -180 -3 -3 -13 -15 -22 -28 -15 -22 -164 -194 -218 -252 -14 -15
+                    -79 -84 -144 -154 -66 -70 -125 -135 -131 -143 -26 -35 -52 -4 -149 171 -105
+                    190 -150 284 -203 421 -18 50 -38 99 -43 110 -79 172 -235 789 -260 1030 -25
+                    237 -29 312 -30 513 0 338 30 491 118 584 66 71 204 51 347 -50 329 -232 473
+                    -576 475 -1137 0 -55 4 -105 8 -112 12 -18 59 -33 108 -33 42 0 45 2 60 38 9
+                    20 22 51 29 67 7 17 18 57 25 90 7 33 18 73 25 90 8 16 30 84 50 150 36 115
+                    71 216 100 280 7 17 16 41 20 55 16 56 138 309 200 415 23 39 50 85 61 104 10
+                    18 28 45 40 60 12 14 28 40 37 56 28 53 153 194 213 241 62 48 161 104 204
+                    115 40 11 87 10 117 -2z"
+            />
+          </g>
+        </svg>
+
+        <h4 class="parallax-slogan">Корисні складники</h4>
+        <h4 class="parallax-slogan">Без доданого цукру</h4>
+        <h4 class="parallax-slogan">Насолоджуйся солодким</h4>
+        <h4 class="parallax-slogan">Не турбуючись про калорії</h4>
+      </section>
+
+      <section class="hero-section">
+        <div class="hero-slider"></div>
+        <div class="slider-nav">
+          <button class="prev-slide">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="next-slide">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <div class="slider-dots"></div>
+      </section>
+
+      <section class="products-section">
+        <div class="products-container"></div>
+      </section>
+
+      <section class="about-section" id="about">
+        <img
+          class="about-image"
+          src="/img/Vika1.webp"
+          alt="Vika"
+          min-width="186"
+        />
+
+        <div class="about-content">
+          <p class="about-intro-text">Привіт! Мене звати Віка.</p>
+
+          <p>
+            Я кондитер, нутриціолог, мама трьох чудових діток, а також фанатка
+            смачної й здорової їжі.
+          </p>
+
+          <p>
+            Моя любов до солодкого завжди була сильною. Та ставши мамою, я
+            почала більше приділяти увагу здоровому харчуванню, впливу їжі на
+            наше самопочуття і зовнішній вигляд.
+          </p>
+
+          <p>
+            Як справжня ласунка, я довго шукала рішення, як поєднати улюблений
+            смак із користю для здоров’я. І воно знайшлось!
+          </p>
+
+          <p>
+            <strong> Солодощі без цукру і шкідливих складників.</strong>
+          </p>
+
+          <p>
+            Так народився бренд
+            <strong>
+              <a
+                href="https://fitcakes.info"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                FitCakes!
+
+                <img
+                  src="/img/icons/heart-icon.svg"
+                  alt="серце"
+                  width="25"
+                  class="about-inline-icon"
+                />
+              </a> </strong
+            >.
+          </p>
+
+          <p>
+            Моя місія — дати вам змогу насолодитися солодким без шкоди для
+            фігури та здоров’я.
+          </p>
+
+          <p>Я вкладаю душу в кожен десерт.</p>
+
+          <p>
+            А кожен позитивний відгук рідних і друзів додає мені сил і бажання
+            творити. ❤️
+          </p>
+        </div>
+
+        <img
+          src="/img/icons/heart-icon.svg"
+          alt="серце"
+          class="about-background-icon"
+        />
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__container">
+        <p>&copy; <span id="year"></span> FitCakes</p>
+        <div class="footer__contacts">
+          <p>
+            Телефон:
+            <a href="tel:+380987185773">+380 98 718 5773</a>
+          </p>
+          <p>
+            Email:
+            <a href="mailto:fitcakes.info@gmail.com">fitcakes.info@gmail.com</a>
+          </p>
+          <p>Адреса: смт Брюховичі (м. Львів) вул.Лікарська, 12</p>
+        </div>
+        <div class="footer__social-links">
+          <a href="https://www.instagram.com/fitcakes_vika">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <div id="likedProductsModal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Обрані товари</h2>
+        <div id="liked-products-list"></div>
+      </div>
+    </div>
+
+    <div id="confirmModal" class="modal">
+      <div class="modal-content">
+        <h2>Ви бажаєте вилучити цей товар зі списку обраних товарів?</h2>
+        <div class="confirm-buttons">
+          <button id="confirmRemoveYes">Так</button>
+          <button id="confirmRemoveNo">Ні</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="cart-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Ваш кошик</h2>
+        <div class="cart-items"></div>
+        <div class="cart-summary">
+          <p>Всього товарів: <span class="cart-total-items">0</span></p>
+          <p>Загальна сума: <span class="cart-total-price">0.00</span> грн</p>
+        </div>
+        <button id="checkout-button">Оформити замовлення</button>
+      </div>
+    </div>
+
+    <div id="product-details-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="product-details-content"></div>
+      </div>
+    </div>
+
+    <div id="add-to-cart-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Додати до кошика</h2>
+        <div class="add-to-cart-form">
+          <p class="add-to-cart-product-name"></p>
+          <p class="add-to-cart-product-price"></p>
+          <div class="quantity-options">
+            <label for="quantity-input">Кількість:</label>
+            <input
+              type="number"
+              id="quantity-input"
+              value="1"
+              min="1"
+              max="99"
+              class="hidden"
+            />
+            <select id="weight-select" class="hidden"></select>
+          </div>
+          <button class="add-to-cart-btn">Додати до кошика</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="order-modal" class="modal">
+      <div id="orderModalContent" class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="preview-block">
+          <label for="order-message">Ваше замовлення:</label>
+          <pre id="orderPreviewList"></pre>
+          <p>
+            <strong>Загальна сума: <span id="totalPrice">0</span> грн</strong>
+          </p>
+          <p>
+            <strong>КБЖВ: <span id="totalKBZHW">0/0/0/0</span></strong>
+          </p>
+        </div>
+        
+        <form
+          id="orderForm"
+          class="order-form"
+          action="https://api.web3forms.com/submit"
+          method="POST"
+        >
+          <input
+            type="hidden"
+            name="access_key"
+            value="83626d6f-f9ff-4ffa-b5aa-a72df170b649"
+          />
+
+          <h3>Ваші дані:</h3>
+
+          <div class="order-form-item">
+            <label for="firstName">Ім'я:</label>
+            <input
+              type="text"
+              name="firstName"
+              id="firstName"
+              required
+              autocomplete="given-name"
+            />
+          </div>
+
+          <div class="order-form-item">
+            <label for="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="order-form-item">
+            <label for="email">Мобільний телефон:</label>
+            <input type="tel" name="tel" id="tel" required autocomplete="tel" />
+          </div>
+
+          <input type="hidden" name="website" id="website" required value="fitcakes.info" />
+
+          <input
+            type="checkbox"
+            name="botcheck"
+            class="hidden"
+            style="display: none"
+          />
+
+          <input
+            type="hidden"
+            name="redirect"
+            value="fitcakes.info/success.html"
+          />
+
+          <button type="submit">Оформити замовлення</button>
+          <button type="button" id="edit-order-button">
+            Редагувати замовлення
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div id="contacts-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Наші контакти</h2>
+        <p>Телефон: <a href="tel:+380987185773">+380 98 718 5773</a></p>
+        <p>
+          Email:
+          <a href="mailto:fitcakes.info@gmail.com">fitcakes.info@gmail.com</a>
+        </p>
+        <p>Адреса: смт Брюховичі (м. Львів) вул.Лікарська, 12</p>
+        <div class="social-links">
+          <a href="https://www.instagram.com/fitcakes_vika">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#">
+            <i class="fab fa-facebook"></i>
+          </a>
+          <a href="#">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div id="add-to-cart-message" class="add-to-cart-message">
+      <p>Товар додано до кошика!</p>
+      <button class="go-to-cart-btn">Перейти до кошика</button>
+      <div class="message-timer-bar"></div>
+    </div>
+
+    <script defer src="js/main.js"></script>
+  </body>
+</html>
