@@ -327,10 +327,16 @@ const likedProductsModal = document.getElementById('likedProductsModal');
 const openLikedProductsModalBtn = document.getElementById(
   'openLikedProductsModalBtn'
 );
+
+// Liked products
+let likedProductsData = [];
 const likedProductsList = document.getElementById('liked-products-list');
+const likedProductsCountSpan = document.querySelector('.liked-products-count');
 const confirmModal = document.getElementById('confirmModal');
 const confirmRemoveYesBtn = document.getElementById('confirmRemoveYes');
 const confirmRemoveNoBtn = document.getElementById('confirmRemoveNo');
+let productToRemoveFromLiked = null; // Declare this variable globally or in a scope accessible by the modal handlers
+
 
 // Cart elements
 const cartIcon = document.querySelector('.cart-icon');
@@ -357,14 +363,13 @@ const goToCartBtn = addToCartMessage.querySelector('.go-to-cart-btn');
 
 
 let currentProductToAdd = null; // Зберігає поточний продукт, що додається в кошик
-let productToRemoveFromLiked = null; // Зберігає ID продукту для видалення з обраних
 
 // Checkout
 const checkoutButton = document.getElementById('checkout-button');
 const orderModal = document.getElementById('order-modal');
 const editOrder = document.getElementById('edit-order-button');
 
-// --- Функції для роботи з Local Storage та кошиком ---
+//! --- Функції для роботи з Local Storage та кошиком ---
 
 /**
  * Завантажує кошик з Local Storage.
@@ -400,6 +405,7 @@ let cart = loadCart();
 const updateCartCount = () => {
   const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountSpan.textContent = totalItemsInCart;
+  
 
   if (totalItemsInCart > 0) {
     cartCountSpan.style.display = 'flex';
@@ -535,15 +541,21 @@ const displayCartItems = () => {
   cartTotalPriceSpan.textContent = totalPrice.toFixed(2);
 };
 
-// --- Функції для обраних товарів ---
+//! --- Функції для обраних товарів ---
 
 /**
  * Отримує список обраних продуктів з Local Storage.
  * @returns {Array} Масив ID обраних продуктів.
  */
 const getLikedProducts = () => {
-  const likedProductsJSON = localStorage.getItem('fitcakes-liked-products');
-  return likedProductsJSON ? JSON.parse(likedProductsJSON) : [];
+  try {
+    const likedProducts =
+      JSON.parse(localStorage.getItem('fitcakes-liked-products')) || [];
+    return likedProducts;
+  } catch (e) {
+    console.error('Error loading likedProducts from Local Storage:', e);
+    return [];
+  }
 };
 
 /**
@@ -600,19 +612,24 @@ const updateLikeButtonIcon = (likeButton, productId) => {
   }
 };
 
-// Зберігаємо тут повні об'єкти продуктів, які були вподобані, для відображення в модалці
-let likedProductsData = [];
+/**
+ * Оновлює відображення кількості товарів на іконці кошика (обох).
+ */
+const updateLikedProductsCount = () => {
+  getLikedProducts();
+  const totalItemsInLikedProductsList = likedProductsData.length;
+  likedProductsCountSpan.textContent = totalItemsInLikedProductsList;
+  console.log('Update liked count:', totalItemsInLikedProductsList); // Added for debugging
 
-// При завантаженні сторінки ініціалізуємо likedProductsData на основі Local Storage
-document.addEventListener('DOMContentLoaded', () => {
-  const likedIds = getLikedProducts();
-  if (likedIds.length > 0 && typeof products !== 'undefined') {
-    // Перевіряємо, чи products існує
-    likedProductsData = products
-      .flatMap((cat) => cat.categoryList)
-      .filter((p) => likedIds.includes(p.id));
+  if (totalItemsInLikedProductsList > 0) {
+    likedProductsCountSpan.style.display = 'flex';
+  } else {
+    likedProductsCountSpan.style.display = 'none';
   }
-});
+
+  console.log(likedProductsData);
+  
+};
 
 /**
  * Відкриває модальне вікно "Обрані товари" та відображає їх.
@@ -626,22 +643,22 @@ const openLikedProductsModal = () => {
       const likedItemDiv = document.createElement('div');
       likedItemDiv.classList.add('liked-product-item');
       likedItemDiv.innerHTML = `
-                <img src="img/products/${
-                  product.images[0] || 'placeholder.jpg'
-                }" alt="${product.назва}">
-                <div class="liked-product-details">
-                    <h4>${product.назва}</h4>
-                    <p>${product.ціна} грн</p>
-                </div>
-                <div class="liked-product-actions">
-                    <button class="go-to-product-btn" data-product-id="${
-                      product.id
-                    }">Перейти до товару</button>
-                    <button class="remove-liked-btn" data-product-id="${
-                      product.id
-                    }">X</button>
-                </div>
-            `;
+        <img src="img/products/${
+          product.images[0] || 'placeholder.jpg'
+        }" alt="${product.назва}">
+        <div class="liked-product-details">
+          <h4>${product.назва}</h4>
+          <p>${product.ціна} грн</p>
+        </div>
+        <div class="liked-product-actions">
+          <button class="go-to-product-btn" data-product-id="${
+            product.id
+          }">Перейти до товару</button>
+          <button class="remove-liked-btn" data-product-id="${
+            product.id
+          }">X</button>
+        </div>
+      `;
       likedProductsList.appendChild(likedItemDiv);
     });
 
@@ -659,7 +676,7 @@ const openLikedProductsModal = () => {
       .forEach((button) => {
         button.addEventListener('click', (e) => {
           const productId = e.target.dataset.productId;
-          closeModal(likedProductsModal);
+          closeModal(likedProductsModal); // Assuming likedProductsModal is defined elsewhere
           const productElement = document.querySelector(
             `[data-product-id="${productId}"]`
           );
@@ -676,28 +693,29 @@ const openLikedProductsModal = () => {
         });
       });
   }
-  openModal(likedProductsModal);
+  openModal(likedProductsModal); // Assuming likedProductsModal is defined elsewhere
 };
 
 // Обробники для модального вікна підтвердження видалення
 confirmRemoveYesBtn.addEventListener('click', () => {
   if (productToRemoveFromLiked) {
     toggleLikeProduct(productToRemoveFromLiked);
-    updateLikeButtonIcon(
-      document.querySelector(
-        `.like-button[data-product-id="${productToRemoveFromLiked}"]`
-      ),
-      productToRemoveFromLiked
+    // Find the specific like button for the product to update its icon
+    const productLikeButton = document.querySelector(
+      `.like-button[data-product-id="${productToRemoveFromLiked}"]`
     );
-    displayLikedProducts(); // Оновлюємо список обраних товарів
+    if (productLikeButton) {
+      updateLikeButtonIcon(productLikeButton, productToRemoveFromLiked);
+    }
+    displayLikedProducts(); // Оновлюємо список обраних товарів у модальному вікні
     productToRemoveFromLiked = null;
-    closeModal(confirmModal);
+    closeModal(confirmModal); // Assuming closeModal is defined elsewhere
   }
 });
 
 confirmRemoveNoBtn.addEventListener('click', () => {
   productToRemoveFromLiked = null;
-  closeModal(confirmModal);
+  closeModal(confirmModal); // Assuming closeModal is defined elsewhere
 });
 
 // Функція для оновлення відображення обраних продуктів (для використання після видалення)
@@ -710,22 +728,22 @@ const displayLikedProducts = () => {
       const likedItemDiv = document.createElement('div');
       likedItemDiv.classList.add('liked-product-item');
       likedItemDiv.innerHTML = `
-                <img src="img/products/${
-                  product.images[0] || 'placeholder.jpg'
-                }" alt="${product.назва}">
-                <div class="liked-product-details">
-                    <h4>${product.назва}</h4>
-                    <p>${product.ціна} грн</p>
-                </div>
-                <div class="liked-product-actions">
-                    <button class="go-to-product-btn" data-product-id="${
-                      product.id
-                    }">Перейти до товару</button>
-                    <button class="remove-liked-btn" data-product-id="${
-                      product.id
-                    }">X</button>
-                </div>
-            `;
+        <img src="img/products/${
+          product.images[0] || 'placeholder.jpg'
+        }" alt="${product.назва}">
+        <div class="liked-product-details">
+          <h4>${product.назва}</h4>
+          <p>${product.ціна} грн</p>
+        </div>
+        <div class="liked-product-actions">
+          <button class="go-to-product-btn" data-product-id="${
+            product.id
+          }">Перейти до товару</button>
+          <button class="remove-liked-btn" data-product-id="${
+            product.id
+          }">X</button>
+        </div>
+      `;
       likedProductsList.appendChild(likedItemDiv);
     });
 
@@ -760,9 +778,10 @@ const displayLikedProducts = () => {
         });
       });
   }
+  updateLikedProductsCount();
 };
 
-// --- Функції для відображення товарів ---
+//! --- Функції для відображення товарів ---
 
 /**
  * Генерує картку товару.
@@ -784,7 +803,6 @@ const createProductCard = (product, index) => {
     </div>
     <img src="${imagePath}" alt="${product.назва}">
     <h3>${product.назва}</h3>
-    <p class="kbzhw">КБЖВ: ${product.кбжв}</p>
     <p class="price">${product.ціна} ₴</p>
     <div class="product-card-buttons">
       <button class="buy-button" data-product-id="${product.id}">Замовити</button>
@@ -798,6 +816,7 @@ const createProductCard = (product, index) => {
     event.stopPropagation(); // Запобігаємо спливанню події, щоб не спрацьовували інші кліки на картці
     toggleLikeProduct(product.id);
     updateLikeButtonIcon(likeButton, product.id);
+    updateLikedProductsCount();
   });
 
   card
@@ -1048,6 +1067,8 @@ const openProductDetailsModal = (product) => {
     cat.categoryList.some((item) => item.id === product.id)
   );
 
+  const kbzhvValues = product.кбжв ? product.кбжв.split(' / ') : [];
+
   productDetailsContent.innerHTML = `
             <img src="img/products/${
               product.images[0] || 'placeholder.jpg'
@@ -1065,16 +1086,11 @@ const openProductDetailsModal = (product) => {
                     ? `<p><strong>Склад:</strong> ${product.склад}</p>`
                     : ''
                 }
-                ${
-                  product.БЖВ
-                    ? `<p><strong>БЖВ на 100г:</strong> ${product.БЖВ}</p>`
-                    : ''
-                }
-                ${
-                  product.калорійність
-                    ? `<p><strong>Калорійність на 100г:</strong> ${product.калорійність}</p>`
-                    : ''
-                }
+                ${product.кбжв ? `<p><strong>На 100г:</strong></p>` : ''}
+                ${product.кбжв ? `<p>Калорій - ${kbzhvValues[0]}</p>` : ''}
+                ${product.кбжв ? `<p>Білків - ${kbzhvValues[1]}</p>` : ''}
+                ${product.кбжв ? `<p>Жирів - ${kbzhvValues[2]}</p>` : ''}
+                ${product.кбжв ? `<p>Вуглеводів - ${kbzhvValues[3]}</p>` : ''}
                 ${
                   productCategory && productCategory.categoryDescription
                     ? `<p><strong>Категорія:</strong> ${
@@ -1325,6 +1341,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+//! FAQ Accordion functionality
+document.querySelectorAll('.faq-question').forEach(question => {
+  question.addEventListener('click', () => {
+    const faqItem = question.parentElement;
+    const isActive = faqItem.classList.contains('active');
+    
+    // Close all other items
+    document.querySelectorAll('.faq-item').forEach(item => {
+      if (item !== faqItem) {
+        item.classList.remove('active');
+      }
+    });
+    
+    // Toggle current item
+    if (!isActive) {
+      faqItem.classList.add('active');
+    } else {
+      faqItem.classList.remove('active');
+    }
+  });
+});
+
+//Open first FAQ item by default
+document.querySelector('.faq-item')?.classList.add('active');
+
 // --- Ініціалізація сторінки ---
 
 // Функція для заповнення мобільного меню категоріями
@@ -1381,19 +1422,26 @@ editOrder.addEventListener('click', () => {
 //! --- Ініціалізація сторінки ---
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Всі `products` вже доступні, тому просто викликаємо функції
   displayProducts();
-  populateHeroSlider();
-  populateMobileMenuCategories(); // Заповнюємо категорії після завантаження продуктів
-  updateCartCount(); // Оновлюємо лічильник кошика при завантаженні сторінки
 
-  // Ініціалізуємо likedProductsData
+  // 1. Populate likedProductsData from Local Storage first
   const likedIds = getLikedProducts();
-  // Переконайтеся, що products - це коректний масив категорій з categoryList
   likedProductsData = products
     .flatMap((cat) => cat.categoryList)
     .filter((p) => likedIds.includes(p.id));
-});
 
-// Initial load
-updateCartCount(); // Оновити кошик при завантаженні сторінки
+  // 2. Now call all functions that depend on fully loaded data
+  updateLikedProductsCount(); // Will now reflect the actual liked products
+  updateCartCount(); // Ensure cart count is also updated (already correct based on `loadCart()`)
+
+  populateHeroSlider();
+  populateMobileMenuCategories();
+
+  document.querySelectorAll('.like-button').forEach((button) => {
+    const productId = button.dataset.productId;
+    updateLikeButtonIcon(button, productId);
+  });
+
+  console.log(likedProductsData);
+  
+});

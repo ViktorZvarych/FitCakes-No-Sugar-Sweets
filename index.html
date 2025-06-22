@@ -16,7 +16,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
+
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -57,9 +57,10 @@
                 data-modal-target="likedProductsModal"
                 aria-label="Обрані товари"
                 id="openLikedProductsModalBtn"
-                class="menu-icon-button"
+                class="menu-icon-button liked-products-icon"
               >
                 <i class="fas fa-heart"></i>
+                <span class="liked-products-count">0</span>
               </a>
             </li>
             <li>
@@ -98,12 +99,12 @@
             </li>
           </ul>
         </nav>
+      </div>
 
-        <div class="mobile-menu-overlay" id="mobile-menu-overlay">
-          <div class="mobile-menu-content" id="mobile-menu-content">
-            <div class="mobile-menu-icons"></div>
-            <ul class="mobile-menu-categories"></ul>
-          </div>
+      <div class="mobile-menu-overlay" id="mobile-menu-overlay">
+        <div class="mobile-menu-content" id="mobile-menu-content">
+          <div class="mobile-menu-icons"></div>
+          <ul class="mobile-menu-categories"></ul>
         </div>
       </div>
     </header>
@@ -180,6 +181,78 @@
 
       <section class="products-section">
         <div class="products-container"></div>
+      </section>
+
+      <section class="faq-section" id="faq">
+        <h2>Часті запитання</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">
+              Які цукрозамінники ви використовуєте?
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Ми використовуємо натуральні цукрозамінники: еритрол та стевію.
+                Вони не підвищують рівень цукру в крові та мають мінімальну
+                калорійність.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Чи можна замовити торт з індивідуальним дизайном?
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Так, ми виготовляємо торти на замовлення з індивідуальним
+                дизайном. Будь-ласка, зв'яжіться з нами заздалегідь для
+                обговорення деталей.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Як довго зберігаються ваші десерти?
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Наші десерти рекомендовано зберігати в холодильнику до 5 днів.
+                Деякі вироби можна заморожувати - уточнюйте при замовленні.
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Чи є у вас доставка?
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Так, ми організовуємо доставку по Львову через служби таксі (Uber та Uklon).
+              </p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              Чи є у вас десерти для діабетиків?
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Всі наші десерти не містять цукру і підходять для людей з
+                діабетом 2 типу. Однак рекомендуємо проконсультуватися з лікарем
+                перед вживанням.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="about-section" id="about">
