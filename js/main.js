@@ -310,7 +310,6 @@ const menuContent = document.getElementById('mobile-menu-content');
 const mobileMenuCategories = document.querySelector('.mobile-menu-categories');
 const burgerMenuIcon = burgerMenuBtn.querySelector('i');
 
-
 const productsContainer = document.querySelector('.products-container');
 const heroSlider = document.querySelector('.hero-slider');
 const sliderDotsContainer = document.querySelector('.slider-dots');
@@ -1317,11 +1316,15 @@ openLikedProductsModalBtn.addEventListener('click', (e) => {
   openLikedProductsModal();
 });
 
-// Theme toggle functionality (if you have one)
+//! Theme toggle functionality
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
 themeToggleBtn.addEventListener('click', () => {
-  body.classList.toggle('dark-theme');
-  // Зберігаємо вибір теми в localStorage
-  if (body.classList.contains('dark-theme')) {
+  // Перемикаємо тему
+  const isDark = body.classList.toggle('dark-theme');
+
+  // Зберігаємо вибір користувача в localStorage
+  if (isDark) {
     localStorage.setItem('fitcakes-theme', 'dark');
     themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
   } else {
@@ -1330,14 +1333,39 @@ themeToggleBtn.addEventListener('click', () => {
   }
 });
 
-// Check for saved theme on load
-document.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('fitcakes-theme') === 'dark') {
-    body.classList.add('dark-theme');
-    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-  } else {
-    body.classList.remove('dark-theme');
-    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+// Функція для встановлення теми
+const setTheme = () => {
+  const savedTheme = localStorage.getItem('fitcakes-theme');
+
+  // Якщо є збережена тема від користувача - використовуємо її
+  if (savedTheme) {
+    if (savedTheme === 'dark') {
+      body.classList.add('dark-theme');
+      themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      body.classList.remove('dark-theme');
+      themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+  }
+  // Якщо немає збереженої теми - використовуємо тему пристрою
+  else {
+    if (prefersDarkScheme.matches) {
+      body.classList.add('dark-theme');
+      themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+    } else {
+      body.classList.remove('dark-theme');
+      themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+    }
+  }
+};
+
+// Встановлюємо тему при завантаженні сторінки
+document.addEventListener('DOMContentLoaded', setTheme);
+
+// Слухаємо зміни теми пристрою (якщо користувач не змінював тему вручну)
+prefersDarkScheme.addListener((e) => {
+  if (!localStorage.getItem('fitcakes-theme')) {
+    setTheme();
   }
 });
 
