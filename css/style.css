@@ -55,6 +55,10 @@ body {
   overflow-x: hidden; /* Запобігаємо горизонтальному скролу */
 }
 
+section {    
+  scroll-margin-top: 100px; /* Для скролу до категорії, враховуючи хедер */
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -250,7 +254,7 @@ button:hover {
   background-color: var(--modal-content-bg);
   width: 100%;
   max-width: 1200px;
-  padding: 20px 0;
+  padding: 20px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -362,22 +366,26 @@ button:hover {
 }
 
 @media (min-width: 768px) {
-  .mobile-menu-categories a {
+  .mobile-menu-links a,
+.mobile-menu-categories a {
     font-size: 1.2rem;
   }
 }
 
 @media (min-width: 1024px) {
-  .mobile-menu-categories a {
+  .mobile-menu-links a,
+.mobile-menu-categories a {
     font-size: 1.4rem;
   }
 }
 
+.mobile-menu-links a:hover,
 .mobile-menu-categories a:hover {
-  color: var(--primary-color);
+  color: var(--slogan-text-color);
   background-color: var(--hover-color);
   transform: translateY(-2px);
 }
+
 
 /*! --- Parallax Section --- */
 
@@ -592,8 +600,7 @@ button:hover {
 
 /*! Products Section */
 .products-section {
-  padding: 40px 0 0;  
-  scroll-margin-top: 100px; /* Для скролу до категорії, враховуючи хедер */
+  padding: 40px 0 0;
 }
 
 .products-container {

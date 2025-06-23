@@ -307,6 +307,7 @@ const themeToggleBtn = document.getElementById('theme-toggle');
 const burgerMenuBtn = document.querySelector('.burger-menu-btn');
 const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
 const menuContent = document.getElementById('mobile-menu-content');
+const mobileMenuLinks = document.querySelector('.mobile-menu-links');
 const mobileMenuCategories = document.querySelector('.mobile-menu-categories');
 const burgerMenuIcon = burgerMenuBtn.querySelector('i');
 
@@ -1283,22 +1284,19 @@ document.addEventListener('click', (event) => {
 });
 
 // Close menu if a link inside is clicked
-mobileMenuCategories.addEventListener('click', (event) => {
+const closeMobileMenuIfLinkClicked = (event) => {
   if (event.target.tagName === 'A') {
     mobileMenuOverlay.classList.remove('open');
     body.style.overflow = '';
     burgerMenuIcon.classList.remove('fa-times');
     burgerMenuIcon.classList.add('fa-bars');
   }
-});
+}
 
-// Додаємо обробники для мобільних іконок в хедері мобільного меню
-// mobileMenuOverlay
-//   .querySelector('[data-modal-target="contacts-modal"]')
-//   .addEventListener('click', (e) => {
-//     e.preventDefault();
-//     openModal(contactsModal);
-//   });
+mobileMenuLinks.addEventListener('click', closeMobileMenuIfLinkClicked);
+
+mobileMenuCategories.addEventListener('click', closeMobileMenuIfLinkClicked);
+
 
 // Hero Slider navigation
 prevSlideBtn.addEventListener('click', () => {
