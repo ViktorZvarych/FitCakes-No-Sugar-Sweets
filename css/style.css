@@ -1,36 +1,48 @@
 /* Змінні для тем */
 :root {
-  --primary-color: #3b2c15;
-  --secondary-color: #7b3f00;
+  --primary-color: #3b2c15; /* змінюється при зміні теми*/
+  --secondary-color: #7b3f00; /* змінюється при зміні теми*/
+  --background-color: #f9f9f9; /* змінюється при зміні теми*/
+
+  --text-color: #333; /* змінюється при зміні теми*/
+
   --accent-color: #ac7017;
-  --text-color: #333;
+
   --slogan-text-color: #fff;
   --slogan-background: #3b2c15;
-  --background-color: #f9f9f9;
-  --card-background: #ffffff;
-  --border-color: #eee;
-  --box-shadow: rgba(0, 0, 0, 0.1);
+
+  --card-background: #ffffff; /* змінюється при зміні теми*/
+  --border-color: #eee; /* змінюється при зміні теми*/
+  --box-shadow: rgba(0, 0, 0, 0.1); /* змінюється при зміні теми*/
+
   --modal-bg: rgba(0, 0, 0, 0.6);
   --modal-content-bg: #ffffff;
-  --button-bg: var(--primary-color);
-  --button-text: #fff;
-  --hover-color: #ac7017;
+
+  --button-bg: #7b3f00; /* змінюється при зміні теми*/
+  --button-text: #fff; /* змінюється при зміні теми*/
+  --hover-color: #ac7017; /* змінюється при зміні теми*/
+
   --liked-color: #ff0000;
+
   --animation-duration: 0.4s;
 }
 
 .dark-theme {
   --primary-color: #ac7017;
   --secondary-color: #ffab52;
-  --text-color: #f5f5f5;
   --background-color: #1a1a1a;
+
+  --text-color: #f5f5f5;
+
   --card-background: #2c2c2c;
   --border-color: #444;
   --box-shadow: rgba(255, 255, 255, 0.5);
+
   --modal-bg: rgba(0, 0, 0, 0.7);
   --modal-content-bg: #333333;
+
   --button-bg: #fff;
-  --button-text: var(--primary-color);
+  --button-text: #ac7017;
   --hover-color: #ffb445;
 }
 
@@ -47,7 +59,8 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: NeuchaShantell Sans, cursive;
+  font-style: italic;
   line-height: 1.6;
   color: var(--text-color);
   background-color: var(--background-color);
@@ -55,7 +68,7 @@ body {
   overflow-x: hidden; /* Запобігаємо горизонтальному скролу */
 }
 
-section {    
+section {
   scroll-margin-top: 100px; /* Для скролу до категорії, враховуючи хедер */
 }
 
@@ -86,7 +99,7 @@ a.button,
 button {
   background-color: var(--button-bg);
   color: var(--button-text);
-  border: none;
+  border: 3px solid transparent;
   padding: 10px 12px;
   border-radius: 5px;
   cursor: pointer;
@@ -97,9 +110,15 @@ button {
 
 a.button:hover,
 button:hover {
-  background-color: var(--hover-color);
+  background-color: var(--button-text);
   color: var(--button-bg);
+  border: 3px solid var(--button-bg);
   transform: translateY(-2px);
+}
+
+a.button:active,
+button:active {
+  transform: translateY(2px);
 }
 
 .line {
@@ -132,12 +151,25 @@ button:hover {
 
 /*! --LOGO-- */
 .header__logo {
+  margin: 5px 0;
+}
+
+.header__logo a {
+  display: block;
   font-size: 1.8em;
   font-weight: bold;
-  color: var(--accent-color);
+  color: var(--secondary-color);
   position: relative;
   z-index: 1;
-  padding: 0.3em;
+  padding: 1px 6px;
+  border: 3px solid transparent;
+  border-radius: 12px;
+}
+
+.header__logo a:hover {
+  border: 3px solid var(--accent-color);
+
+  transform: translateY(-2px);
 }
 
 .header__nav ul {
@@ -157,17 +189,28 @@ button:hover {
   display: flex;
   align-items: center;
   color: var(--text-color); /* Колір іконок за замовчуванням */
+  border: 3px solid transparent;
 }
 
-.header__nav ul li a:has(i) {
+.header__nav ul li a {
   padding: 8px;
   border-radius: 5px;
 }
 
+.header__nav ul li a:has(span) {
+  margin-right: 4px;
+}
+
 .header__nav ul li a:hover,
 .header__nav ul li button:hover {
-  color: var(--button-text);
-  background-color: var(--hover-color);
+  border: 3px solid var(--secondary-color);
+  color: var(--secondary-color);
+  transform: translateY(-2px);
+}
+
+.header__nav ul li a:active,
+.header__nav ul li button:active {
+  transform: translateY(2px);
 }
 
 .header__nav ul li a .fas,
@@ -186,8 +229,9 @@ button:hover {
   position: absolute;
   top: -8px;
   right: -8px;
-  background-color: var(--accent-color);
-  color: var(--text-color);
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
   padding: 2px 6px;
   font-size: 0.7em;
@@ -223,7 +267,46 @@ button:hover {
   display: block;
 }
 
-/* Mobile Menu Overlay */
+/* Mobile first responsive design */
+@media (max-width: 768px) {
+  .header__nav ul li {
+    margin-left: 3px; /* Зменшимо відступи між іконками */
+  }
+
+  .header__nav ul li a .fas,
+  .header__nav ul li button .fas {
+    font-size: 1.2em; /* Трохи менші іконки для мобільних */
+  }
+
+  .header__menu .burger-menu-item {
+    /* Переконаємося, що бургер-іконка завжди відображається */
+    display: block;
+  }
+
+  .header__nav ul {
+    /* Приховуємо стандартне меню, але всі іконки залишаються видимими */
+    display: flex;
+    justify-content: flex-end; /* Вирівнюємо іконки праворуч */
+    width: auto; /* Автоматична ширина для іконок */
+    position: static;
+    top: auto;
+    left: auto;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .header__nav ul li:not(.burger-menu-item) {
+    /* Показуємо всі іконки, крім бургер-меню (вона вже показана) */
+    display: list-item; /* Забезпечує, що вони відображаються як елементи списку */
+  }
+
+  .header__logo {
+    text-align: left;
+    font-size: 1.6em;
+  }
+}
+
+/*! Mobile Menu Overlay */
 .mobile-menu-overlay {
   position: absolute;
   top: 100%;
@@ -301,7 +384,7 @@ button:hover {
   color: var(--primary-color);
 }
 
-/*! Mobile Menu Categories */
+/* Mobile Menu Categories */
 
 .mobile-menu-links,
 .mobile-menu-categories {
@@ -367,14 +450,14 @@ button:hover {
 
 @media (min-width: 768px) {
   .mobile-menu-links a,
-.mobile-menu-categories a {
+  .mobile-menu-categories a {
     font-size: 1.2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .mobile-menu-links a,
-.mobile-menu-categories a {
+  .mobile-menu-categories a {
     font-size: 1.4rem;
   }
 }
@@ -386,7 +469,6 @@ button:hover {
   transform: translateY(-2px);
 }
 
-
 /*! --- Parallax Section --- */
 
 .parallax-section {
@@ -394,29 +476,31 @@ button:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  justify-content: center;
   align-items: center;
-  background: url(../img/background.webp); /* Переконайтеся, що шлях до зображення правильний */
+  background: url(../img/background.webp);
   background-attachment: fixed; /* Ефект паралаксу */
   background-size: cover;
   background-position: center;
   position: relative; /* Для позиціонування SVG та слоганів */
   overflow: hidden; /* Щоб уникнути зайвого скролу, якщо SVG виходить за межі */
-  color: white; /* Для читабельності тексту на фоні */
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Додаємо тінь для читабельності */
   padding: 2rem 0; /* Додаємо padding для кращого розподілу елементів */
 
-  a.button {
-    color: var(--accent-color);
+  a.parallax-button {    
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--slogan-text-color);
+    text-decoration: underline;
     background: var(--modal-bg);
     border: 2px solid var(--accent-color);
     border-radius: 12px;
     scroll-behavior: smooth;
-    font-size: 1.4rem;
+    transition: all 0.3s ease;
   }
 
-  a.button:hover {
-    color: var(--slogan-text-color);
+  a.parallax-button:hover {
     background-color: var(--slogan-background);
   }
 }
@@ -463,7 +547,7 @@ button:hover {
 @media (max-width: 768px) {
   .parallax-section {
     height: 90vh; /* Зменшимо висоту на мобільних, якщо потрібно */
-    padding: 1rem 0; /* Зменшуємо padding на мобільних */
+    padding: 2rem 0; /* Зменшуємо padding на мобільних */
   }
 
   .parallax-slogan {
@@ -768,9 +852,9 @@ button:hover {
   z-index: 10; /* Щоб кнопки були над картинкою */
 }
 
-.product-card-overlay-buttons button {
+.product-card-overlay-buttons button {  
   background: var(--button-bg);
-  border: none;
+  border: 2px solid transparent;
   border-radius: 50%;
   width: 35px;
   height: 35px;
@@ -789,12 +873,16 @@ button:hover {
 }
 
 .product-card-overlay-buttons button:hover {
-  background-color: var(--primary-color);
+  background-color: var(--button-text);
+    color: var(--button-bg);
+    border: 2px solid var(--button-bg);
+    transform: translateY(-2px);
 }
 
 .product-card-overlay-buttons button:hover i,
 .product-card-overlay-buttons .like-button:hover i.far.fa-heart {
-  color: var(--hover-color); /* Колір іконки при наведенні */
+  
+  color: var(--button-bg); /* Колір іконки при наведенні */
 }
 
 .product-card-overlay-buttons .like-button i.fas.fa-heart.liked {
@@ -1252,45 +1340,6 @@ button:hover {
 /* Utility classes */
 .hidden {
   display: none !important;
-}
-
-/* Mobile first responsive design */
-@media (max-width: 768px) {
-  .header__nav ul li {
-    margin-left: 3px; /* Зменшимо відступи між іконками */
-  }
-
-  .header__nav ul li a .fas,
-  .header__nav ul li button .fas {
-    font-size: 1.2em; /* Трохи менші іконки для мобільних */
-  }
-
-  .header__menu .burger-menu-item {
-    /* Переконаємося, що бургер-іконка завжди відображається */
-    display: block;
-  }
-
-  .header__nav ul {
-    /* Приховуємо стандартне меню, але всі іконки залишаються видимими */
-    display: flex;
-    justify-content: flex-end; /* Вирівнюємо іконки праворуч */
-    width: auto; /* Автоматична ширина для іконок */
-    position: static;
-    top: auto;
-    left: auto;
-    box-shadow: none;
-    padding: 0;
-  }
-
-  .header__nav ul li:not(.burger-menu-item) {
-    /* Показуємо всі іконки, крім бургер-меню (вона вже показана) */
-    display: list-item; /* Забезпечує, що вони відображаються як елементи списку */
-  }
-
-  .header__logo {
-    flex-grow: 1; /* Логотип займає більше місця */
-    text-align: left;
-  }
 }
 
 /*! FAQ Section */
