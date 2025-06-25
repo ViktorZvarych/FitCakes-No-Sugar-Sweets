@@ -24,6 +24,10 @@ const products = [
         кбжв: '',
         варіанти: [0.5, 0.8, 1, 1.5, 2],
         images: ['tort-napoleon1.webp'],
+        акція: {
+          термін: '31.09.2025',
+          ціна: 600,
+        },
       },
       {
         назва: 'Естерхазі',
@@ -156,6 +160,11 @@ const products = [
         склад: 'Карамель, арахісова паста',
         кбжв: '97 / 2.8 / 5.6 / 8.5',
         images: ['madlen-snikers1.webp'],
+        акція: {
+          термін: '31.08.2025',
+          ціна: 60,
+          умова: 'За умови придбання 6 шт. і більше',
+        },
       },
       {
         назва: 'Вишня-шоколад',
@@ -303,6 +312,8 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 // --- Змінні DOM елементів ---
 const body = document.body;
+
+// Menu
 const themeToggleBtn = document.getElementById('theme-toggle');
 const burgerMenuBtn = document.querySelector('.burger-menu-btn');
 const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
@@ -311,11 +322,15 @@ const mobileMenuLinks = document.querySelector('.mobile-menu-links');
 const mobileMenuCategories = document.querySelector('.mobile-menu-categories');
 const burgerMenuIcon = burgerMenuBtn.querySelector('i');
 
+// Products
 const productsContainer = document.querySelector('.products-container');
+
+// Slider
 const heroSlider = document.querySelector('.hero-slider');
 const sliderDotsContainer = document.querySelector('.slider-dots');
 const prevSlideBtn = document.querySelector('.prev-slide');
 const nextSlideBtn = document.querySelector('.next-slide');
+const sliderInterval = 7000;
 
 // Modals
 const cartModal = document.getElementById('cart-modal');
@@ -336,7 +351,6 @@ const confirmModal = document.getElementById('confirmModal');
 const confirmRemoveYesBtn = document.getElementById('confirmRemoveYes');
 const confirmRemoveNoBtn = document.getElementById('confirmRemoveNo');
 let productToRemoveFromLiked = null; // Declare this variable globally or in a scope accessible by the modal handlers
-
 
 // Cart elements
 const cartIcon = document.querySelector('.cart-icon');
@@ -360,7 +374,6 @@ const addToCartButton = addToCartModal.querySelector('.add-to-cart-btn');
 const addToCartMessage = document.getElementById('add-to-cart-message');
 const messageTimerBar = addToCartMessage.querySelector('.message-timer-bar');
 const goToCartBtn = addToCartMessage.querySelector('.go-to-cart-btn');
-
 
 let currentProductToAdd = null; // Зберігає поточний продукт, що додається в кошик
 
@@ -405,7 +418,6 @@ let cart = loadCart();
 const updateCartCount = () => {
   const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
   cartCountSpan.textContent = totalItemsInCart;
-  
 
   if (totalItemsInCart > 0) {
     cartCountSpan.style.display = 'flex';
@@ -497,7 +509,7 @@ const displayCartItems = () => {
           : `${item.quantity} шт.`;
 
       cartItemDiv.innerHTML = `
-                      <img src="img/products/${item.image}" alt="${item.name}">
+                      <img src="././img/products/${item.image}" alt="${item.name}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
                       <div class="cart-item-details">
                           <h4>${item.name} (${variantText})</h4>
                           <p>${item.price} грн</p>
@@ -628,7 +640,6 @@ const updateLikedProductsCount = () => {
   }
 
   console.log(likedProductsData);
-  
 };
 
 /**
@@ -643,20 +654,14 @@ const openLikedProductsModal = () => {
       const likedItemDiv = document.createElement('div');
       likedItemDiv.classList.add('liked-product-item');
       likedItemDiv.innerHTML = `
-        <img src="img/products/${
-          product.images[0] || 'placeholder.jpg'
-        }" alt="${product.назва}">
+        <img src="././img/products/${product.images[0]}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
         <div class="liked-product-details">
           <h4>${product.назва}</h4>
           <p>${product.ціна} грн</p>
         </div>
         <div class="liked-product-actions">
-          <button class="go-to-product-btn" data-product-id="${
-            product.id
-          }">Перейти до товару</button>
-          <button class="remove-liked-btn" data-product-id="${
-            product.id
-          }">X</button>
+          <button class="go-to-product-btn" data-product-id="${product.id}">Перейти до товару</button>
+          <button class="remove-liked-btn" data-product-id="${product.id}">X</button>
         </div>
       `;
       likedProductsList.appendChild(likedItemDiv);
@@ -728,20 +733,14 @@ const displayLikedProducts = () => {
       const likedItemDiv = document.createElement('div');
       likedItemDiv.classList.add('liked-product-item');
       likedItemDiv.innerHTML = `
-        <img src="img/products/${
-          product.images[0] || 'placeholder.jpg'
-        }" alt="${product.назва}">
+        <img src="./img/products/${product.images[0]}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
         <div class="liked-product-details">
           <h4>${product.назва}</h4>
           <p>${product.ціна} грн</p>
         </div>
         <div class="liked-product-actions">
-          <button class="go-to-product-btn" data-product-id="${
-            product.id
-          }">Перейти до товару</button>
-          <button class="remove-liked-btn" data-product-id="${
-            product.id
-          }">X</button>
+          <button class="go-to-product-btn" data-product-id="${product.id}">Перейти до товару</button>
+          <button class="remove-liked-btn" data-product-id="${product.id}">X</button>
         </div>
       `;
       likedProductsList.appendChild(likedItemDiv);
@@ -794,14 +793,14 @@ const createProductCard = (product, index) => {
   card.classList.add(index % 2 === 0 ? 'animate-left' : 'animate-right'); // Анімація
   card.setAttribute('data-product-id', product.id); // Додаємо data-product-id до картки
 
-  const imagePath = `img/products/${product.images[0] || 'placeholder.jpg'}`;
+  const imagePath = `./img/products/${product.images[0]}`;
 
   card.innerHTML = `
     <div class="product-card-overlay-buttons">
       <button class="like-button" data-product-id="${product.id}"></button>
       <button class="details-button" data-product-id="${product.id}"><i class="fas fa-info"></i></button>
     </div>
-    <img src="${imagePath}" alt="${product.назва}">
+    <img src="${imagePath}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
     <h3>${product.назва}</h3>
     <p class="price">${product.ціна} ₴</p>
     <div class="product-card-buttons">
@@ -923,115 +922,198 @@ const displayProducts = () => {
   });
 };
 
-// --- Функції для слайдера Hero Section ---
-
-let currentSlideIndex = 0;
+//! --- Функції для слайдера Hero Section (акційні товари) ---
+let currentSlide = 0;
 let slideInterval;
 
 /**
- * Створює слайд для Hero Section.
- * @param {Object} product - Об'єкт товару.
- * @returns {HTMLElement} HTML елемент слайда.
- */
-const createHeroSlide = (product) => {
-  const slide = document.createElement('div');
-  slide.classList.add('hero-slide');
-  // Змінено шлях до зображення для коректного відображення
-  slide.style.backgroundImage = `url(img/products/${
-    product.images[0] || 'placeholder.jpg'
-  })`;
-  slide.innerHTML = `
-              <div class="hero-slide-content">
-                  <h3>${product.назва}</h3>
-                  <p>${product.ціна} грн</p>
-              </div>
-          `;
-  return slide;
-};
-
-/**
- * Заповнює слайдер випадковими товарами.
- */
-const populateHeroSlider = () => {
-  heroSlider.innerHTML = '';
-  sliderDotsContainer.innerHTML = '';
-
-  const allProducts = products.flatMap((category) => category.categoryList);
-  const shuffledProducts = allProducts.sort(() => 0.5 - Math.random());
-  const slidesToShow = Math.min(shuffledProducts.length, 3); // Показуємо максимум 3 випадкових товари
-
-  for (let i = 0; i < slidesToShow; i++) {
-    const slide = createHeroSlide(shuffledProducts[i]);
-    heroSlider.appendChild(slide);
-
-    const dot = document.createElement('span');
-    dot.classList.add('dot');
-    dot.dataset.slideIndex = i;
-    dot.addEventListener('click', () => goToSlide(i));
-    sliderDotsContainer.appendChild(dot);
-  }
-  updateSlider();
-  startSlideShow();
-};
-
-/**
- * Оновлює відображення слайдера та крапок.
+ * Оновлює стан слайдера (активний слайд та точки)
  */
 const updateSlider = () => {
-  const slides = heroSlider.querySelectorAll('.hero-slide');
-  heroSlider.style.transform = `translateX(${-currentSlideIndex * 100}%)`;
+  const slides = document.querySelectorAll('.hero-slide');
+  const dots = document.querySelectorAll('.dot');
 
-  const dots = sliderDotsContainer.querySelectorAll('.dot');
+  slides.forEach((slide, index) => {
+    slide.style.display = index === currentSlide ? 'block' : 'none';
+  });
+
   dots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === currentSlideIndex);
+    dot.classList.toggle('active', index === currentSlide);
   });
 };
 
 /**
- * Переходить до наступного слайда.
- */
-const nextSlide = () => {
-  const slides = heroSlider.querySelectorAll('.hero-slide');
-  currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-  updateSlider();
-};
-
-/**
- * Переходить до попереднього слайда.
- */
-const prevSlide = () => {
-  const slides = heroSlider.querySelectorAll('.hero-slide');
-  currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
-  updateSlider();
-};
-
-/**
- * Переходить до конкретного слайда.
- * @param {number} index - Індекс слайда.
+ * Переходить до певного слайду
+ * @param {number} index - Індекс слайду
  */
 const goToSlide = (index) => {
-  currentSlideIndex = index;
+  const slides = document.querySelectorAll('.hero-slide');
+  if (index >= slides.length) {
+    currentSlide = 0;
+  } else if (index < 0) {
+    currentSlide = slides.length - 1;
+  } else {
+    currentSlide = index;
+  }
   updateSlider();
-  resetSlideShow();
 };
 
 /**
- * Запускає автоматичну зміну слайдів.
+ * Переходить до наступного слайду
+ */
+const nextSlide = () => {
+  goToSlide(currentSlide + 1);
+};
+
+/**
+ * Переходить до попереднього слайду
+ */
+const prevSlide = () => {
+  goToSlide(currentSlide - 1);
+};
+
+/**
+ * Запускає автоматичну зміну слайдів
  */
 const startSlideShow = () => {
-  clearInterval(slideInterval);
-  slideInterval = setInterval(nextSlide, 5000); // Змінюємо слайд кожні 5 секунд
+  clearInterval(slideInterval); // Очищаємо попередній інтервал, якщо він був
+  slideInterval = setInterval(() => {
+    nextSlide();
+  }, sliderInterval); // Змінюємо слайд кожні 5 секунд
 };
 
 /**
- * Перезапускає автоматичну зміну слайдів.
+ * Скидає таймер автоматичної зміни слайдів
  */
 const resetSlideShow = () => {
   clearInterval(slideInterval);
   startSlideShow();
 };
 
-// --- Функції для модальних вікон ---
+/**
+ * Знаходить продукт за ID
+ * @param {string} productId - ID продукту
+ * @returns {Object|null} Об'єкт продукту або null, якщо не знайдено
+ */
+const findProductById = (productId) => {
+  for (const category of products) {
+    const product = category.categoryList.find((p) => p.id === productId);
+    if (product) return product;
+  }
+  return null;
+};
+
+/**
+ * Створює слайд для Hero Section з акційним товаром.
+ * @param {Object} product - Об'єкт товару.
+ * @returns {HTMLElement} HTML елемент слайда.
+ */
+const createHeroSlide = (product) => {
+  if (product.акція) {
+    const slide = document.createElement('div');
+    slide.classList.add('hero-slide');
+    slide.style.backgroundImage = `url(./img/products/${
+      product.images[0] || './img/icons/heart.svg'
+    })`;
+
+    // Визначаємо текст акції та умови (за наявності)
+    let saleText = `(Знижка ${Math.round((1 - product.акція.ціна / product.ціна) * 100)}%)`;
+
+    slide.innerHTML = `
+    <div class="hero-slide-content">
+      <div class="hero-slide-header">   
+        <h3>${product.назва}</h3>
+        <h5>(Категорія: ${product.category})</h5>
+        <div class="price-container">
+          <span class="original-price">
+            ${product.ціна}
+          </span>
+          <span class="current-price">
+            ${product.акція.ціна} ${product.варіанти ? 'грн/кг' : 'грн/шт'}
+          </span>
+        </div>
+        <p class="sale-text">${saleText}</p>
+      </div>      
+
+      
+        <p class="sale-date">Термін дії акції: до ${product.акція.термін}</p>
+      
+      <button class="details-button" data-product-id="${product.id}">
+        Детальніше
+      </button>
+    </div>
+  `;
+
+    return slide;
+  } else {
+    return null;
+  }
+};
+
+/**
+ * Отримує всі акційні товари
+ * @returns {Array} Масив товарів з акціями
+ */
+const getProductsOnSale = () => {
+  return products.flatMap((category) =>
+    category.categoryList
+      .filter((product) => product.акція)
+      .map((product) => ({
+        ...product,
+        category: category.category,
+      }))
+  );
+};
+
+/**
+ * Заповнює слайдер акційними товарами
+ */
+const populateHeroSlider = () => {
+  heroSlider.innerHTML = '';
+  sliderDotsContainer.innerHTML = '';
+
+  const saleProducts = getProductsOnSale();
+
+  if (saleProducts.length === 0) {
+    // Якщо немає акційних товарів, показуємо заглушку
+    heroSlider.innerHTML = `
+      <div class="hero-slide no-sales">
+        <div class="hero-slide-content">
+          <h3>Наразі акційних пропозицій немає</h3>
+          <p>Слідкуйте за нашими оновленнями</p>
+        </div>
+      </div>
+    `;
+    return;
+  }
+
+  saleProducts.forEach((product, index) => {
+    const slide = createHeroSlide(product);
+    heroSlider.appendChild(slide);
+
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    dot.dataset.slideIndex = index;
+    dot.addEventListener('click', () => goToSlide(index));
+    sliderDotsContainer.appendChild(dot);
+  });
+
+  // Додаємо обробники кліків для кнопок "Детальніше"
+  document.querySelectorAll('.details-button').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const productId = e.target.dataset.productId;
+      const product = findProductById(productId);
+      if (product) {
+        openProductDetailsModal(product);
+      }
+    });
+  });
+
+  updateSlider();
+  startSlideShow();
+};
+
+//! --- Функції для модальних вікон ---
 
 /**
  * Відкриває модальне вікно.
@@ -1062,48 +1144,68 @@ const openProductDetailsModal = (product) => {
   const productDetailsContent = productDetailsModal.querySelector(
     '.product-details-content'
   );
-  // Додаємо категорію до продукту для відображення опису
   const productCategory = products.find((cat) =>
     cat.categoryList.some((item) => item.id === product.id)
   );
 
   const kbzhvValues = product.кбжв ? product.кбжв.split(' / ') : [];
 
+  // Формуємо HTML для акційної інформації
+  // Визначаємо текст акції та умови (за наявності)
+  
+  let saleInfoHtml = '';
+  if (product.акція) {
+    let saleText = `(Знижка ${Math.round(
+      (1 - product.акція.ціна / product.ціна) * 100
+    )}%)`;
+    let saleCondition = product.акція.умова ? `* ${product.акція.умова}` : '';
+    
+    saleInfoHtml = `
+      <div class="sale-info">
+        <h4>Акція: ${saleText}</h4>
+        <p class="sale-info-condition"><strong>${saleCondition}</strong></p>
+        <p class="sale-info-date">Термін дії акції: до ${product.акція.термін}</p>
+      </div>
+    `;
+  }
+
   productDetailsContent.innerHTML = `
-            <img src="img/products/${
-              product.images[0] || 'placeholder.jpg'
-            }" alt="${product.назва}">
-            <div class="product-details-text">
-                <h3>${product.назва}</h3>
-                <p><strong>Ціна:</strong> ${product.ціна} грн</p>
-                ${
-                  product.опис
-                    ? `<p><strong>Опис:</strong> ${product.опис}</p>`
-                    : ''
-                }
-                ${
-                  product.склад
-                    ? `<p><strong>Склад:</strong> ${product.склад}</p>`
-                    : ''
-                }
-                ${product.кбжв ? `<p><strong>На 100г:</strong></p>` : ''}
-                ${product.кбжв ? `<p>Калорій - ${kbzhvValues[0]}</p>` : ''}
-                ${product.кбжв ? `<p>Білків - ${kbzhvValues[1]}</p>` : ''}
-                ${product.кбжв ? `<p>Жирів - ${kbzhvValues[2]}</p>` : ''}
-                ${product.кбжв ? `<p>Вуглеводів - ${kbzhvValues[3]}</p>` : ''}
-                ${
-                  productCategory && productCategory.categoryDescription
-                    ? `<p><strong>Категорія:</strong> ${
-                        productCategory.category
-                      }</p>
-                   <p>${productCategory.categoryDescription.join(' ')}</p>`
-                    : ''
-                }
-                <button class="buy-button add-to-cart-from-details" data-product-id="${
-                  product.id
-                }">Додати до кошика</button>
-            </div>
-        `;
+    <img src="./img/products/${product.images[0] || 'placeholder.jpg'}" alt="${
+    product.назва
+  }">
+    <div class="product-details-text">
+      <h3>${product.назва}</h3>
+      <div class="price-container">
+        ${
+          product.акція
+            ? `<span class="original-price">${product.ціна}</span>`
+            : ''
+        }
+        <span class="current-price">${product.акція?.ціна || product.ціна} ${
+    product.варіанти ? 'грн/кг' : 'грн/шт'
+  }</span>
+      </div>
+      ${saleInfoHtml}
+      ${product.опис ? `<p><strong>Опис:</strong> ${product.опис}</p>` : ''}
+      ${product.склад ? `<p><strong>Склад:</strong> ${product.склад}</p>` : ''}
+      ${product.кбжв ? `<p><strong>На 100г:</strong></p>` : ''}
+      ${product.кбжв ? `<p>Калорій - ${kbzhvValues[0]}</p>` : ''}
+      ${product.кбжв ? `<p>Білків - ${kbzhvValues[1]}</p>` : ''}
+      ${product.кбжв ? `<p>Жирів - ${kbzhvValues[2]}</p>` : ''}
+      ${product.кбжв ? `<p>Вуглеводів - ${kbzhvValues[3]}</p>` : ''}
+      ${
+        productCategory && productCategory.categoryDescription
+          ? `<p><strong>Категорія:</strong> ${productCategory.category}</p>
+           <p>${productCategory.categoryDescription.join(' ')}</p>`
+          : ''
+      }
+      <button class="buy-button add-to-cart-from-details" data-product-id="${
+        product.id
+      }">
+        Додати до кошика
+      </button>
+    </div>
+  `;
 
   productDetailsModal
     .querySelector('.add-to-cart-from-details')
@@ -1291,12 +1393,11 @@ const closeMobileMenuIfLinkClicked = (event) => {
     burgerMenuIcon.classList.remove('fa-times');
     burgerMenuIcon.classList.add('fa-bars');
   }
-}
+};
 
 mobileMenuLinks.addEventListener('click', closeMobileMenuIfLinkClicked);
 
 mobileMenuCategories.addEventListener('click', closeMobileMenuIfLinkClicked);
-
 
 // Hero Slider navigation
 prevSlideBtn.addEventListener('click', () => {
@@ -1368,18 +1469,18 @@ prefersDarkScheme.addListener((e) => {
 });
 
 //! FAQ Accordion functionality
-document.querySelectorAll('.faq-question').forEach(question => {
+document.querySelectorAll('.faq-question').forEach((question) => {
   question.addEventListener('click', () => {
     const faqItem = question.parentElement;
     const isActive = faqItem.classList.contains('active');
-    
+
     // Close all other items
-    document.querySelectorAll('.faq-item').forEach(item => {
+    document.querySelectorAll('.faq-item').forEach((item) => {
       if (item !== faqItem) {
         item.classList.remove('active');
       }
     });
-    
+
     // Toggle current item
     if (!isActive) {
       faqItem.classList.add('active');
@@ -1391,8 +1492,6 @@ document.querySelectorAll('.faq-question').forEach(question => {
 
 //Open first FAQ item by default
 document.querySelector('.faq-item')?.classList.add('active');
-
-// --- Ініціалізація сторінки ---
 
 // Функція для заповнення мобільного меню категоріями
 const populateMobileMenuCategories = () => {
@@ -1437,13 +1536,12 @@ const showAddToCartMessage = () => {
 checkoutButton.addEventListener('click', () => {
   closeModal(cartModal);
   openModal(orderModal);
-
 });
 
 editOrder.addEventListener('click', () => {
   closeModal(orderModal);
   openModal(cartModal);
-});;
+});
 
 //! --- Ініціалізація сторінки ---
 
@@ -1469,5 +1567,4 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   console.log(likedProductsData);
-  
 });
