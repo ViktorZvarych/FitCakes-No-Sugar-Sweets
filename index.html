@@ -373,19 +373,6 @@
       </div>
     </div>
 
-    <div id="cart-modal" class="modal">
-      <div class="modal-content">
-        <span class="close-button">&times;</span>
-        <h2>Ваш кошик</h2>
-        <div class="cart-items"></div>
-        <div class="cart-summary">
-          <p>Всього товарів: <span class="cart-total-items">0</span></p>
-          <p>Загальна сума: <span class="cart-total-price">0.00</span> грн</p>
-        </div>
-        <button id="checkout-button">Оформити замовлення</button>
-      </div>
-    </div>
-
     <div id="product-details-modal" class="modal">
       <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -416,6 +403,19 @@
         </div>
       </div>
     </div>
+    
+    <div id="cart-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Ваш кошик</h2>
+        <div class="cart-items"></div>
+        <div class="cart-summary">
+          <p>Всього товарів: <span class="cart-total-items">0</span></p>
+          <p>Загальна сума: <span class="cart-total-price">0.00</span> ₴</p>
+        </div>
+        <button id="checkout-button">Оформити замовлення</button>
+      </div>
+    </div>
 
     <!-- Order Modal -->
     <div id="order-modal" class="modal">
@@ -425,7 +425,7 @@
           <label for="order-message">Ваше замовлення:</label>
           <pre id="orderPreviewList"></pre>
           <p>
-            <strong>Загальна сума: <span id="totalPrice">0</span> грн</strong>
+            <strong>Загальна сума: <span id="totalPrice">0</span> ₴</strong>
           </p>
           <p>
             <strong>КБЖВ: <span id="totalKBZHW">0/0/0/0</span></strong>
@@ -488,12 +488,18 @@
             value="fitcakes.info/success.html"
           />
 
-          <button type="submit">Оформити замовлення</button>
+          <button type="submit">Замовити</button>
           <button type="button" id="edit-order-button">
             Редагувати замовлення
           </button>
         </form>
       </div>
+    </div>
+
+    <div id="add-to-cart-message" class="add-to-cart-message">
+      <p>Товар додано до кошика!</p>
+      <button class="go-to-cart-btn">Перейти до кошика</button>
+      <div class="message-timer-bar"></div>
     </div>
 
     <div id="contacts-modal" class="modal">
@@ -518,12 +524,6 @@
           </a>
         </div>
       </div>
-    </div>
-
-    <div id="add-to-cart-message" class="add-to-cart-message">
-      <p>Товар додано до кошика!</p>
-      <button class="go-to-cart-btn">Перейти до кошика</button>
-      <div class="message-timer-bar"></div>
     </div>
 
     <script defer src="./js/main.js"></script>

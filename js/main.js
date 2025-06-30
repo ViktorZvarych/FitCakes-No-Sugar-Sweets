@@ -2,6 +2,8 @@ const products = [
   {
     category: 'Торти',
     categoryId: 'torts',
+    categoryImg: 'torts.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Без цукру, без лактози, без глютену!',
       'Цей десерт містить велику кількість білка. У його складі є протеїн, завдяки чому, з`ївши шматочок брауні, ви можете легко поповнити запаси білка в організмі.',
@@ -16,6 +18,7 @@ const products = [
         кбжв: '',
         варіанти: [0.5, 0.8, 1, 1.5, 2],
         images: ['tort-medivnyk1.webp'],
+        categoryId: 'torts',
       },
       {
         назва: 'Наполеон',
@@ -28,6 +31,7 @@ const products = [
           термін: '31.09.2025',
           ціна: 600,
         },
+        categoryId: 'torts',
       },
       {
         назва: 'Естерхазі',
@@ -36,6 +40,7 @@ const products = [
         кбжв: '',
         варіанти: [0.5, 0.8, 1, 1.5, 2],
         images: ['tort-esterhazi1.webp'],
+        categoryId: 'torts',
       },
       {
         назва: 'Морквяний',
@@ -44,12 +49,15 @@ const products = [
         кбжв: '200 / 6.3 / 15 / 10.3',
         варіанти: [0.5, 0.8, 1, 1.5, 2],
         images: ['tort-morkva1.webp'],
+        categoryId: 'torts',
       },
     ],
   },
   {
     category: 'Бенто-Торти',
     categoryId: 'bento-torts',
+    categoryImg: 'bento-torts.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Мініторти вагою 650 г — це ідеальний подарунок чи десерт на двох.',
       'Виготовлені без цукру, з якісних інгредієнтів, вони поєднують користь і насолоду.',
@@ -62,6 +70,7 @@ const products = [
         кбжв: '',
         варіанти: [0.65],
         images: ['bento-tort-vanil1.jpg'],
+        categoryId: 'bento-torts',
       },
       {
         назва: 'Шоколадний бісквіт',
@@ -70,6 +79,7 @@ const products = [
         кбжв: '',
         варіанти: [0.65],
         images: ['bento-tort-shokolad1.jpg'],
+        categoryId: 'bento-torts',
       },
       {
         назва: 'Малина-ваніль',
@@ -79,6 +89,7 @@ const products = [
         кбжв: '212 / 7.9 / 16.4 / 8',
         варіанти: [0.65],
         images: ['bento-tort-malyna1.jpg'],
+        categoryId: 'bento-torts',
       },
       {
         назва: 'Вишня-шоколад',
@@ -88,12 +99,15 @@ const products = [
         кбжв: '187 / 7.2 / 14.8 / 6.5',
         варіанти: [0.65],
         images: ['bento-tort-vyshnia1.jpg'],
+        categoryId: 'bento-torts',
       },
     ],
   },
   {
     category: 'Fit-Паски',
     categoryId: 'fit-pasky',
+    categoryImg: 'fit-pasky.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Паски без цукру, з високим вмістом білка — це смачна й корисна альтернатива традиційній випічці.',
       'Підходять для тих, хто дотримується здорового харчування.',
@@ -107,6 +121,7 @@ const products = [
         кбжв: '156.7 / 10.6 / 5.9 / 14.7',
         варіанти: [0.4, 0.6, 0.9],
         images: ['fit-paska-shokolad1.jpg'],
+        categoryId: 'fit-pasky',
       },
       {
         назва: 'Сирна',
@@ -116,6 +131,7 @@ const products = [
         кбжв: '156.7 / 10.6 / 5.9 / 14.7',
         варіанти: [0.4, 0.6, 0.9],
         images: ['fit-paska-syrna1.jpg'],
+        categoryId: 'fit-pasky',
       },
       {
         назва: 'Апельсинова з маком',
@@ -125,6 +141,7 @@ const products = [
         кбжв: '223 / 12.9 / 7.8 / 25',
         варіанти: [0.4, 0.6, 0.9],
         images: ['fit-paska-apelsyn1.jpg'],
+        categoryId: 'fit-pasky',
       },
       {
         назва: 'З курагою та білим шоколадом',
@@ -134,6 +151,7 @@ const products = [
         кбжв: '172 / 8.1 / 4.7 / 27.8',
         варіанти: [0.5, 1],
         images: ['fit-paska-kuraha1.jpg'],
+        categoryId: 'fit-pasky',
       },
       {
         назва: 'Крафін',
@@ -143,12 +161,15 @@ const products = [
         кбжв: '306 / 13.6 / 17 / 29.8',
         варіанти: [0.5, 1],
         images: ['fit-paska-krafin1.webp'],
+        categoryId: 'fit-pasky',
       },
     ],
   },
   {
     category: 'Мадлени',
     categoryId: 'madleny',
+    categoryImg: 'madleny.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Французьке печиво у новому здоровому форматі.',
       'Мадлени — легкий, ніжний десерт без цукру з унікальними смаками.',
@@ -159,32 +180,40 @@ const products = [
         ціна: 75,
         склад: 'Карамель, арахісова паста',
         кбжв: '97 / 2.8 / 5.6 / 8.5',
+        вага: '80',
         images: ['madlen-snikers1.webp'],
         акція: {
           термін: '31.08.2025',
           ціна: 60,
           умова: 'За умови придбання 6 шт. і більше',
         },
+        categoryId: 'madleny',
       },
       {
         назва: 'Вишня-шоколад',
         ціна: 75,
         склад: '',
         кбжв: '78 / 2 / 6.1 / 10',
+        вага: '80',
         images: ['madlen-vyshnia1.webp'],
+        categoryId: 'madleny',
       },
       {
         назва: 'Кокос',
         ціна: 75,
         склад: '',
         кбжв: '88 / 2.1 / 7 / 9.8',
+        вага: '80',
         images: ['madlen-kokos1.jpg'],
+        categoryId: 'madleny',
       },
     ],
   },
   {
     category: 'Cookies',
     categoryId: 'cookies',
+    categoryImg: 'cookies.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Корисне печиво без цукру — ідеальний перекус з балансом макроелементів, яке поєднує смак і користь.',
     ],
@@ -194,88 +223,164 @@ const products = [
         ціна: 50,
         склад: '',
         кбжв: '161 / 4.5 / 7.7 / 20.5',
+        вага: '80',
         images: ['cookies-morkva1.jpg'],
+        categoryId: 'cookies',
       },
       {
         назва: 'Мигдаль-кокос',
         ціна: 50,
         склад: '',
         кбжв: '219 / 7.5 / 12.1 / 21.5',
+        вага: '80',
         images: ['cookies-myhdal-kokos1.jpg'],
+        categoryId: 'cookies',
       },
       {
         назва: 'Баунті',
         ціна: 50,
         склад: '',
         кбжв: '203 / 6.1 / 10.8 / 25',
+        вага: '80',
         images: ['cookies-bounti1.jpg'],
+        categoryId: 'cookies',
       },
       {
         назва: 'Снікерс',
         ціна: 50,
         склад: '',
         кбжв: '212 / 7.6 / 9.3 / 24.4',
+        вага: '80',
         images: ['cookies-snikers1.jpg'],
+        categoryId: 'cookies',
       },
       {
         назва: 'Вишня-шоколад',
         ціна: 50,
         склад: '',
         кбжв: '172 / 4.9 / 8.2 / 23',
+        вага: '80',
         images: ['cookies-vyshnia1.jpg'],
+        categoryId: 'cookies',
       },
     ],
   },
   {
     category: 'Fit MOTI',
     categoryId: 'fit-moti',
+    categoryImg: 'fit-moti.webp',
+    акція: {
+      термін: '31.08.2025',
+      умови: [
+        'від 4 шт - 82.5 ₴/шт',
+        'від 6 шт - 80 ₴/шт',
+        'від 8 шт - 77.5 ₴/шт',
+        'від 12 шт - 75 ₴/шт',
+      ],
+    },
     categoryDescription: [
       'Корисна версія традиційних японських солодощів.',
       'Справжня насолода з екзотичними смаками, білком та натуральними складниками.',
+      'Легкий, ніжний десерт, тане у роті немов розтоплене морозиво.',
+      'Але у порівнянні з морозивом - низькокалорійне, без цукру та збалансоване.',
+      'Улюблений десерт літа багатьох🍚🍧🍨',
+      'Термін зберігання після розморозки - 48годин у холодильнику.',
+      'Зберігати в упаковці або герметично закриті плівкою.',
+      'У морозильній камері - 2 тижні, але також герметично запаковані харчовою плівкою',
     ],
     categoryList: [
       {
+        назва: 'Полуничний пломбір',
+        ціна: 90,
+        склад:
+          'Борошно клейкого рису, кукурудзяний крохмаль, оливкова олія, крем-сир, полуниця, протеїн, вершки, протеїновий полуничний йогури, шоколад без цукру, стевія, еритрол',
+        кбжв: '100.5 / 3.5 / 5.14 / 11.7',
+        вага: '80',
+        images: ['fit-moti-polunytsia1.jpg'],
+        categoryId: 'fit-moti',
+      },
+      {
+        назва: 'Орео',
+        ціна: 90,
+        склад:
+          'Борошно клейкого рису, кукурудзяний крохмаль, оливкова олія, крем-сир, печиво орео без цукру, протеїн, желатин, вершки, згущене кокосове молоко, стевія, еритрол',
+        кбжв: '115.6 / 5.8 / 4.9 / 12.4',
+        вага: '80',
+        images: ['fit-moti-oreo1.jpg'],
+        categoryId: 'fit-moti',
+      },
+      {
+        назва: 'Манго-чіа',
+        ціна: 90,
+        склад:
+          'Борошно клейкого рису, пюре манго, кукурудзяний крохмаль, оливкова олія, крем-сир, вершки, протеїн, молоко, зерна чіа, желатин, стевія, еритрол',
+        кбжв: '92.6 / 4 / 3.8 / 10.2',
+        вага: '80',
+        images: ['fit-moti-mango-сhia1.jpg'],
+        categoryId: 'fit-moti',
+      },
+      {
         назва: 'Манго-маракуя-кокос',
-        ціна: 70,
+        ціна: 90,
+        склад:
+          'Борошно клейкого рису, смородина, кукурудзяний крохмаль, оливкова олія, крем-сир, протеїн, вершки, желатин, ваніль, шоколад без цукру, стевія, еритрол',
+        кбжв: '108.6 / 3.5 / 5.9 / 16.3',
+        вага: '80',
+        images: ['fit-moti-mango-smorodyna1.jpg'],
+        categoryId: 'fit-moti',
+      },
+      {
+        назва: 'Манго-маракуя-кокос',
+        ціна: 90,
         склад:
           'Пюре манго, пюре маракуї, кокосова стружка, протеїн, сир рікотта, вершкови   сир, білий шоколад без цукру, желатин, борошно клейкого рису, оливкова олія, пектин, соєвий білок, стевія, еритрол',
         кбжв: '100 / 6.6 / 3.4 / 11.2',
-        images: ['fit-moti-mango1.jpg'],
+        вага: '80',
+        images: ['fit-moti-mango-kokos1.jpg'],
+        categoryId: 'fit-moti',
       },
       {
         назва: 'Rafaello',
-        ціна: 70,
+        ціна: 90,
         склад:
           'Кокосова стружка, кокосові вершки, мигдаль, сир рікотта, вершковий сир, протеїн, соєвий білок, шоколад без цукру, желатин, борошно клейкого рису, оливкова олія, стевія, еритрол',
         кбжв: '126 / 7 / 6.6 / 9.7',
+        вага: '80',
         images: ['fit-moti-rafaello1.jpg'],
+        categoryId: 'fit-moti',
       },
       {
         назва: 'Фісташка',
-        ціна: 70,
+        ціна: 90,
         склад:
           'Фісташка, вершковий сир, желатин, сир рікотта, протеїн, соєвий білок, крем-сир, шоколад без цукру, борошно клейкого рису, оливкова олія, стевія, еритрол',
         кбжв: '133 / 7.5 / 6.3 / 11.8',
+        вага: '80',
         images: ['fit-moti-fistashka1.jpg'],
+        categoryId: 'fit-moti',
       },
       {
         назва: 'Кава-карамель',
-        ціна: 70,
+        ціна: 90,
         склад:
           'Карамель без цукру, кава, желатин, кокосове масло, сир рікотта, вершковий сир, протеїн, яєчний білок, соєвий білок, протеїн, молоко, білий шоколад без цукру, борошно клейкого рису, оливкова олія, стевія, еритрол',
         кбжв: '100 / 6.6 / 3.4 / 11.2',
+        вага: '80',
         images: ['fit-moti-kava1.jpg'],
+        categoryId: 'fit-moti',
       },
     ],
   },
   {
-    category: 'Брауні протеїнове',
+    category: 'Брауні',
     categoryId: 'protein-brownies',
+    categoryImg: 'protein-brownies.webp',
+    акція: '', // Додано порожнє поле акція
     categoryDescription: [
       'Протеїнові брауні — ситний і корисний десерт без цукру.',
       'Ідеальний для спортсменів і прихильників здорового способу життя.',
       'Цей десерт містить велику кількість білка. У його складі є протеїн, завдяки чому, з`ївши шматочок брауні, ви можете легко поповнити запаси білка в організмі.',
-      'Білок — це макронутрієнт, який ми часто не добираємо у щоденному раціоні. А його дефіцит може негативно впливати на стан шкіри, фігуру, тіло та м’язи.',
+      'Білок — це макронутрієнт, який ми часто не добираємо у щоденному раціоні. А його дефіцит може негативно впливати на стан шкіри, фігуру, тіло та м`язи.',
       'Тому цей десерт — чудовий варіант для всіх, а особливо для тих, хто займається спортом, стежить за калорійністю раціону та балансом макронутрієнтів.',
     ],
     categoryList: [
@@ -285,7 +390,9 @@ const products = [
         склад:
           'Мигдалеве борошно, протеїн, какао, розпушувач, яйця, солосвіт, еритрол, йогурт, рисове борошно, кукурудзяний крохмаль, фісташкова паста, шоколад без цукру',
         кбжв: '100 / 5.1 / 6 / 8',
+        вага: '80',
         images: ['protein-browny-dubais1.jpg'],
+        categoryId: 'protein-brownies',
       },
       {
         назва: 'Rafaello',
@@ -293,7 +400,9 @@ const products = [
         склад:
           'Мигдалеве борошно, протеїн, какао, розпушувач, яйця, солосвіт, еритрол, йогурт, кокосова стружка, кокосове згущене молоко без цукру, кокосове борошно, шоколад без цукру',
         кбжв: '84 / 7 / 4 / 5',
+        вага: '80',
         images: ['protein-browny-rafaello1.jpg'],
+        categoryId: 'protein-brownies',
       },
       {
         назва: 'Фінікова карамель',
@@ -301,7 +410,46 @@ const products = [
         склад:
           'Мигдалеве борошно, протеїн, какао, розпушувач, яйця, солосвіт, еритрол, йогурт, арахісова паста, фініки, шоколад без цукру',
         кбжв: '98 / 6.4 / 5 / 6.3',
+        вага: '80',
         images: ['protein-browny-finik1.jpg'],
+        categoryId: 'protein-brownies',
+      },
+    ],
+  },
+  {
+    category: 'Цукерки',
+    categoryId: 'tsukerky',
+    categoryImg: 'tsukerky.webp',
+    акція: '', // Додано порожнє поле акція
+    categoryDescription: [
+      'Шоколадні цукерки, які на разі представлені у 2 смаках.',
+      'Але такі різні як по складу, так і на смак.',
+      'Проте, кожна з них потребує твоєї уваги.',
+      'Протеїнова цукерка - це бомба ніжного протеїно-карамельного смаку.',
+      'Містить велику кількість білку.💪',
+      'Дубайська цукерка - хрусткий фісташковий смак, під хрустким молочним шоколадом.🍫',
+      'Обирай, але ти оціниш обидва смаки.',
+    ],
+    categoryList: [
+      {
+        назва: 'Протеїнова',
+        ціна: 60,
+        склад:
+          'шоколад без цукру, протеїн, арахісові паста, ізолят соєвого білка',
+        кбжв: '140 / 9.4 / 10.8 / 11.7',
+        вага: '80',
+        images: ['tsukerky-protein.jpg'],
+        categoryId: 'tsukerky',
+      },
+      {
+        назва: 'Дубайська',
+        ціна: 60,
+        склад:
+          'шоколад без цукру, арахісова паста, рисове борошно, оливкова олія, фісташкова паста, кукурудзяний крохмаль',
+        кбжв: '158 / 3.2 / 11.4 / 21.6',
+        вага: '80',
+        images: ['tsukerky-dubai.jpg'],
+        categoryId: 'tsukerky',
       },
     ],
   },
@@ -382,88 +530,250 @@ const checkoutButton = document.getElementById('checkout-button');
 const orderModal = document.getElementById('order-modal');
 const editOrder = document.getElementById('edit-order-button');
 
-//! --- Функції для роботи з Local Storage та кошиком ---
-
-/**
- * Завантажує кошик з Local Storage.
- * @returns {Array} Масив товарів у кошику.
- */
+///! --- Функції для роботи з Local Storage та кошиком ---
 const loadCart = () => {
   try {
-    const cart = JSON.parse(localStorage.getItem('fitcakes-cart')) || [];
-    return cart;
+    return JSON.parse(localStorage.getItem('fitcakes-cart')) || [];
   } catch (e) {
-    console.error('Error loading cart from Local Storage:', e);
+    console.error('Помилка завантаження кошика:', e);
     return [];
   }
 };
 
 /**
- * Зберігає кошик у Local Storage.
- * @param {Array} cart - Масив товарів у кошику.
+ * Перевіряє, чи акція ще дійсна
+ * @param {string} endDate - Дата закінчення акції (DD.MM.YYYY або YYYY-MM-DD)
+ * @param {Date} [currentDate] - Опціонально: дата для перевірки (за замовчуванням — поточна)
+ * @returns {boolean} - true, якщо акція дійсна
  */
-const saveCart = (cart) => {
-  try {
-    localStorage.setItem('fitcakes-cart', JSON.stringify(cart));
-  } catch (e) {
-    console.error('Error saving cart to Local Storage:', e);
+function isPromotionActive(endDate, currentDate = new Date()) {
+  if (!endDate) {
+    return false;
   }
+
+  let day, month, year;
+  if (endDate.includes('.')) {
+    [day, month, year] = endDate.split('.').map(Number); // DD.MM.YYYY
+  } else {
+    [year, month, day] = endDate.split('-').map(Number); // YYYY-MM-DD
+  }
+
+  const promotionEnd = new Date(year, month - 1, day, 23, 59, 59, 999);
+  const isActive = currentDate <= promotionEnd;
+
+  return isActive;
+}
+
+/**
+ * Отримує акційну ціну для продукту (якщо є знижка на категорію або конкретний товар)
+ * @param {string} categoryId - ID категорії
+ * @param {string} productName - Назва продукту (опціонально, якщо потрібна знижка саме на нього)
+ * @param {number} quantity - Кількість товару (для оптових знижок)
+ * @returns {object|null} - Об'єкт з інформацією про знижку або `null`, якщо її немає
+ *   Формат: {
+ *     type: 'product' | 'category', // Тип знижки (на продукт чи категорію)
+ *     originalPrice: number,        // Початкова ціна
+ *     discountPrice: number,       // Ціна зі знижкою (за одиницю)
+ *     validUntil: string,          // Термін дії знижки (дата)
+ *     bulkDiscount: {              // Якщо є оптова знижка (необов'язково)
+ *       bulkPrice: number,         // Сумарна ціна за партію
+ *       bulkQuantity: number,      // Необхідна кількість
+ *     }
+ *   }
+ */
+const getDiscountInfo = (categoryId, productName = null, quantity = 1) => {
+  const category = products.find((p) => p.categoryId === categoryId);
+  if (!category) {
+    console.log('Категорія не знайдена');
+    return null;
+  }
+
+  // 1. Перевіряємо акцію на конкретний продукт (якщо вказано назву)
+  if (productName) {
+    const product = category.categoryList.find((p) => p.назва === productName);
+    if (product?.акція) {
+      if (isPromotionActive(product.акція.термін)) {
+        // Перевіряємо умову кількості для акції продукту (якщо є)
+        if (product.акція.умова) {
+          const match = product.акція.умова.match(/придбання (\d+) шт/);
+          if (match) {
+            const requiredQty = parseInt(match[1]);
+
+            if (quantity < requiredQty) return null;
+          }
+        }
+
+        return {
+          type: 'product',
+          originalPrice: product.ціна,
+          discountPrice: product.акція.ціна,
+          validUntil: product.акція.термін,
+        };
+      }
+    }
+  }
+
+  // 2. Перевіряємо оптову знижку на категорію
+  if (category?.акція?.умови && isPromotionActive(category.акція.термін)) {
+
+    const bulkConditions = category.акція.умови
+      .map((condition) => {
+        const [qtyStr, priceStr] = condition.split(' - ');
+        return {
+          quantity: parseInt(
+            qtyStr.replace('від ', '').replace(' шт', '').trim()
+          ),
+          price: parseFloat(priceStr.replace(' ₴/шт', '').trim()),
+        };
+      })
+      .sort((a, b) => b.quantity - a.quantity); // Сортуємо за спаданням кількості
+
+    const bestDiscount = bulkConditions.find(
+      (cond) => quantity >= cond.quantity
+    );
+
+    if (bestDiscount) {
+      const productPrice = productName
+        ? category.categoryList.find((p) => p.назва === productName)?.ціна
+        : category.categoryList[0]?.ціна;
+
+      return {
+        type: 'category',
+        originalPrice: productPrice,
+        discountPrice: bestDiscount.price,
+        validUntil: category.акція.термін,
+        bulkDiscount: {
+          bulkPrice: bestDiscount.price * quantity,
+          bulkQuantity: bestDiscount.quantity,
+        },
+      };
+    }
+  }
+
+  return null; // Акція не знайдена
+};
+
+const saveCart = (cart) => {
+  localStorage.setItem('fitcakes-cart', JSON.stringify(cart));
 };
 
 let cart = loadCart();
 
-/**
- * Оновлює відображення кількості товарів на іконці кошика (обох).
- */
 const updateCartCount = () => {
-  const totalItemsInCart = cart.reduce((sum, item) => sum + item.quantity, 0);
-  cartCountSpan.textContent = totalItemsInCart;
-
-  if (totalItemsInCart > 0) {
-    cartCountSpan.style.display = 'flex';
-  } else {
-    cartCountSpan.style.display = 'none';
-  }
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCountSpan.textContent = totalItems;
+  cartCountSpan.style.display = totalItems > 0 ? 'flex' : 'none';
 };
 
 /**
- * Додає товар до кошика або оновлює його кількість.
- * @param {Object} product - Об'єкт товару.
- * @param {number} quantity - Кількість товару.
- * @param {string|number} [variant=null] - Обраний варіант (вага/кількість).
+ * Отримує акційну ціну для продуктів зі знижкою за кількість
+ * @param {string} categoryId - ID категорії
+ * @param {number} quantity - Загальна кількість товарів у категорії
+ * @returns {number|null} - Акційна ціна або null, якщо акція не застосовується
  */
+const getBulkDiscountPrice = (categoryId, quantity) => {
+  const category = products.find((p) => p.categoryId === categoryId);
+  if (!category?.акція?.умови || !isPromotionActive(category.акція.термін))
+    return null;
+
+  const bulkConditions = category.акція.умови
+    .map((condition) => {
+      const [qtyStr, priceStr] = condition.split(' - ');
+      return {
+        quantity: parseInt(qtyStr),
+        price: parseInt(priceStr.replace(' ₴', '')),
+      };
+    })
+    .sort((a, b) => b.quantity - a.quantity); // Сортуємо за спаданням кількості
+
+  for (const condition of bulkConditions) {
+    if (quantity >= condition.quantity) {
+      return {
+        pricePerItem: condition.price / condition.quantity,
+        bulkPrice: condition.price,
+        bulkQuantity: condition.quantity,
+      };
+    }
+  }
+  return null;
+};
+
 const addToCart = (product, quantity, variant = null) => {
-  // Генеруємо унікальний ID для елемента кошика, враховуючи варіант
-  const itemId = `${product.id}-${variant !== null ? variant : quantity}`;
+  const uniqueProductId = `${product.categoryId}-${product.назва}`;
+  let price = product.ціна;
+  let isPromo = false;
+  let discountInfo = null;
 
-  const existingItemIndex = cart.findIndex((item) => item.itemId === itemId);
+  // Перевіряємо акцію на продукт
+  discountInfo = getDiscountInfo(product.categoryId, product.назва, quantity);
 
-  if (existingItemIndex > -1) {
-    cart[existingItemIndex].quantity += quantity;
-    cart[existingItemIndex].totalPrice =
-      cart[existingItemIndex].quantity * product.ціна;
+  if (discountInfo) {
+    price = discountInfo.discountPrice;
+    isPromo = true;
+  }
+
+  // Для вагових товарів
+  if (variant !== null) {
+    price = price * variant; // Використовуємо вже акційну ціну (якщо є)
+    quantity = 1;
+  }
+
+  const itemId =
+    variant !== null ? `${uniqueProductId}-${variant}` : uniqueProductId;
+  const existingItem = cart.find((item) => item.itemId === itemId);
+
+  if (existingItem) {
+    existingItem.quantity += quantity;
+    existingItem.totalPrice = existingItem.quantity * price;
   } else {
     cart.push({
-      itemId: itemId, // Унікальний ID для цього елемента кошика
-      id: product.id, // Оригінальний ID продукту
+      itemId,
+      id: uniqueProductId,
       name: product.назва,
-      price: product.ціна,
-      quantity: quantity,
-      variant: variant,
+      price: price,
+      originalPrice: product.ціна,
+      quantity,
+      variant,
       image: product.images[0] || 'placeholder.jpg',
-      totalPrice: quantity * product.ціна,
+      totalPrice: price * quantity,
+      category: product.categoryId,
+      isWeighted: !!product.варіанти,
+      isPromo: isPromo,
     });
   }
+
+  // Перераховуємо ціни для всіх товарів категорії з урахуванням оптової знижки
+  if (!variant) {
+    const categoryItems = cart.filter(
+      (item) => item.category === product.categoryId && !item.isWeighted
+    );
+    const totalQuantity = categoryItems.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+
+    // Отримуємо інформацію про знижку для всієї категорії
+    const categoryDiscount = getDiscountInfo(
+      product.categoryId,
+      null,
+      totalQuantity
+    );
+
+    if (categoryDiscount) {
+      categoryItems.forEach((item) => {
+        item.price = categoryDiscount.discountPrice;
+        item.totalPrice = item.quantity * item.price;
+        item.isPromo = true;
+      });
+    }
+  }
+
   saveCart(cart);
   updateCartCount();
   displayCartItems();
   showAddToCartMessage();
 };
 
-/**
- * Видаляє товар з кошика.
- * @param {string} itemId - Унікальний ID елемента кошика.
- */
 const removeFromCart = (itemId) => {
   cart = cart.filter((item) => item.itemId !== itemId);
   saveCart(cart);
@@ -471,87 +781,296 @@ const removeFromCart = (itemId) => {
   displayCartItems();
 };
 
-/**
- * Оновлює кількість товару в кошику.
- * @param {string} itemId - Унікальний ID елемента кошика.
- * @param {number} newQuantity - Нова кількість.
- */
 const updateCartItemQuantity = (itemId, newQuantity) => {
-  const itemIndex = cart.findIndex((item) => item.itemId === itemId);
-  if (itemIndex > -1) {
-    cart[itemIndex].quantity = newQuantity;
-    cart[itemIndex].totalPrice = newQuantity * cart[itemIndex].price;
+  const item = cart.find((item) => item.itemId === itemId);
+  if (item && !item.isWeighted) {
+    item.quantity = newQuantity;
+
+    // Спочатку перевіряємо акцію на конкретний товар
+    const productDiscount = getDiscountInfo(
+      item.category,
+      item.name,
+      newQuantity
+    );
+
+    if (productDiscount) {
+      item.price = productDiscount.discountPrice;
+      item.totalPrice = newQuantity * item.price;
+      item.isPromo = true;
+    } else {
+      // Якщо немає акції на товар, перевіряємо акцію на категорію
+      const categoryItems = cart.filter(
+        (i) => i.category === item.category && !i.isWeighted
+      );
+      const totalQuantity = categoryItems.reduce(
+        (sum, i) => sum + i.quantity,
+        0
+      );
+
+      const categoryDiscount = getDiscountInfo(
+        item.category,
+        null,
+        totalQuantity
+      );
+
+      if (categoryDiscount) {
+        categoryItems.forEach((i) => {
+          i.price = categoryDiscount.discountPrice;
+          i.totalPrice = i.quantity * i.price;
+          i.isPromo = true;
+        });
+      } else {
+        // Якщо знижка більше не застосовується, повертаємо оригінальні ціни
+        item.price = item.originalPrice;
+        item.totalPrice = newQuantity * item.price;
+        item.isPromo = false;
+      }
+    }
+
     saveCart(cart);
     updateCartCount();
     displayCartItems();
   }
 };
 
-/**
- * Відображає товари в модальному вікні кошика.
- */
 const displayCartItems = () => {
   cartItemsContainer.innerHTML = '';
-  let totalItems = 0;
-  let totalPrice = 0;
 
   if (cart.length === 0) {
-    cartItemsContainer.innerHTML = '<p>Ваш кошик порожній.</p>';
-  } else {
-    cart.forEach((item) => {
-      const cartItemDiv = document.createElement('div');
-      cartItemDiv.classList.add('cart-item');
-      const variantText =
-        item.variant !== null
-          ? `${item.variant} ${
-              item.variant.toString().includes('.') ? 'кг' : 'шт.'
-            }`
-          : `${item.quantity} шт.`;
-
-      cartItemDiv.innerHTML = `
-                      <img src="././img/products/${item.image}" alt="${item.name}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-                      <div class="cart-item-details">
-                          <h4>${item.name} (${variantText})</h4>
-                          <p>${item.price} грн</p>
-                      </div>
-                      <div class="cart-item-controls">
-                          <input type="number" class="item-quantity" value="${item.quantity}" min="1" data-item-id="${item.itemId}">
-                          <button class="remove-item-btn" data-item-id="${item.itemId}">X</button>
-                      </div>
-                  `;
-      cartItemsContainer.appendChild(cartItemDiv);
-
-      totalItems += 1; // Кожен унікальний товар (з варіантом) вважаємо як 1 позицію
-      totalPrice += item.totalPrice;
-    });
-
-    // Додаємо обробники для зміни кількості
-    cartItemsContainer.querySelectorAll('.item-quantity').forEach((input) => {
-      input.addEventListener('change', (e) => {
-        const itemId = e.target.dataset.itemId;
-        const newQuantity = parseInt(e.target.value);
-        if (newQuantity > 0) {
-          updateCartItemQuantity(itemId, newQuantity);
-        } else {
-          removeFromCart(itemId);
-        }
-      });
-    });
-
-    // Додаємо обробники для кнопки "Видалити"
-    cartItemsContainer
-      .querySelectorAll('.remove-item-btn')
-      .forEach((button) => {
-        button.addEventListener('click', (e) => {
-          const itemId = e.target.dataset.itemId;
-          removeFromCart(itemId);
-        });
-      });
+    cartItemsContainer.innerHTML = '<p>Ваш кошик порожній</p>';
+    checkoutButton.style.display = 'none';
+    return;
   }
 
-  cartTotalItemsSpan.textContent = totalItems;
+  let totalPrice = 0;
+  let totalItems = 0;
+
+  // Групуємо товари по категоріям
+  const categories = [...new Set(cart.map((item) => item.category))];
+
+  categories.forEach((categoryId) => {
+    const categoryItems = cart.filter((item) => item.category === categoryId);
+    const totalCategoryQuantity = categoryItems.reduce(
+      (sum, item) => sum + item.quantity,
+      0
+    );
+    const bulkDiscount = getBulkDiscountPrice(
+      categoryId,
+      totalCategoryQuantity
+    );
+
+    // Додаємо заголовок категорії
+    const categoryTitle = document.createElement('h3');
+    categoryTitle.className = 'cart-category-title';
+    categoryTitle.textContent =
+      products.find((p) => p.categoryId === categoryId)?.category || categoryId;
+    cartItemsContainer.appendChild(categoryTitle);
+
+    // Додаємо інформацію про акцію, якщо є
+    if (bulkDiscount) {
+      const discountInfo = document.createElement('div');
+      discountInfo.className = 'cart-discount-info';
+      discountInfo.innerHTML = `
+        <p>Акція: ${bulkDiscount.bulkQuantity} шт. за ${
+        bulkDiscount.bulkPrice
+      } ₴</p>
+        <small>Діє до: ${
+          products.find((p) => p.categoryId === categoryId)?.акція?.термін || ''
+        }</small>
+      `;
+      cartItemsContainer.appendChild(discountInfo);
+    }
+
+    // Додаємо товари категорії
+    categoryItems.forEach((item) => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'cart-item';
+
+      const variantText =
+        item.variant !== null ? `${item.variant} кг` : `${item.quantity} шт.`;
+      const pricePerUnit =
+        item.variant !== null
+          ? `${(item.price / item.variant).toFixed(2)} ₴/кг`
+          : `${item.price} ₴/шт.`;
+
+      itemElement.innerHTML = `
+        <img src="./img/products/${item.image}" alt="${
+        item.name
+      }" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
+        <div class="cart-item-details">
+          <h4>${item.name}</h4>
+          <p>${variantText}</p>
+          <p class="cart-item-total">${item.totalPrice.toFixed(2)} ₴</p>
+          <small>${pricePerUnit}</small>
+          ${
+            item.isPromo && !bulkDiscount
+              ? '<span class="promo-badge">Акція</span>'
+              : ''
+          }
+        </div>
+        <div class="cart-item-controls">
+          ${
+            !item.isWeighted
+              ? `
+            <input type="number" min="1" value="${item.quantity}" class="item-quantity" data-item-id="${item.itemId}">
+          `
+              : ''
+          }
+          <button class="remove-item-btn" data-item-id="${
+            item.itemId
+          }">×</button>
+        </div>
+      `;
+
+      cartItemsContainer.appendChild(itemElement);
+      totalPrice += item.totalPrice;
+      totalItems += item.quantity;
+    });
+  });
+
+  // Обробники подій
+  cartItemsContainer.querySelectorAll('.item-quantity').forEach((input) => {
+    input.addEventListener('change', (e) => {
+      const newQuantity = parseInt(e.target.value);
+      if (newQuantity > 0) {
+        updateCartItemQuantity(e.target.dataset.itemId, newQuantity);
+      } else {
+        removeFromCart(e.target.dataset.itemId);
+      }
+    });
+  });
+
+  cartItemsContainer.querySelectorAll('.remove-item-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      removeFromCart(e.target.dataset.itemId);
+    });
+  });
+
   cartTotalPriceSpan.textContent = totalPrice.toFixed(2);
+  cartTotalItemsSpan.textContent = totalItems;
+  checkoutButton.style.display = 'block';
 };
+
+/**
+ * Відкриває модальне вікно додавання в кошик
+ * @param {Object} product - Об'єкт товару
+ */
+const openAddToCartModal = (product, categoryId) => {
+  currentProductToAdd = product;
+  addToCartProductName.textContent = product.назва;
+
+  // Додаємо categoryId до об'єкта продукту
+  product.categoryId = categoryId;
+
+  quantityInput.classList.add('hidden');
+  weightSelect.classList.add('hidden');
+  weightSelect.innerHTML = '';
+
+  // Решта коду залишається без змін...
+  if (product.варіанти && product.варіанти.length > 0) {
+    weightSelect.classList.remove('hidden');
+
+    product.варіанти.forEach((weight) => {
+      const option = document.createElement('option');
+      option.value = weight;
+      option.textContent = `${weight} кг`;
+      weightSelect.appendChild(option);
+    });
+
+    const initialWeight = product.варіанти[0];
+    const discountInfo = getDiscountInfo(categoryId, product.назва, 1); // Використовуємо categoryId
+    const price = discountInfo ? discountInfo.discountPrice : product.ціна;
+
+    addToCartProductPrice.textContent = `${(initialWeight * price).toFixed(
+      2
+    )} ₴`;
+    if (discountInfo) {
+      addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
+        initialWeight * product.ціна
+      ).toFixed(2)} ₴)</span>`;
+    }
+
+    weightSelect.addEventListener('change', (e) => {
+      const selectedWeight = parseFloat(e.target.value);
+      addToCartProductPrice.textContent = `${(selectedWeight * price).toFixed(
+        2
+      )} ₴`;
+      if (discountInfo) {
+        addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
+          selectedWeight * product.ціна
+        ).toFixed(2)} ₴)</span>`;
+      }
+    });
+  } else {
+    quantityInput.classList.remove('hidden');
+    quantityInput.value = 1;
+
+    const discountInfo = getDiscountInfo(categoryId, product.назва, 1); // Використовуємо categoryId
+    const price = discountInfo ? discountInfo.discountPrice : product.ціна;
+
+    addToCartProductPrice.textContent = `${price} ₴`;
+    if (discountInfo) {
+      addToCartProductPrice.innerHTML += ` <span class="original-price">(${product.ціна} ₴)</span>`;
+    }
+
+    quantityInput.addEventListener('input', (e) => {
+      const qty = parseInt(e.target.value);
+      if (!isNaN(qty)) {
+        const qtyDiscountInfo = getDiscountInfo(
+          categoryId, // Використовуємо categoryId
+          product.назва,
+          qty
+        );
+        const qtyPrice = qtyDiscountInfo
+          ? qtyDiscountInfo.discountPrice
+          : product.ціна;
+
+        addToCartProductPrice.textContent = `${(qty * qtyPrice).toFixed(2)} ₴`;
+        if (qtyDiscountInfo) {
+          addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
+            qty * product.ціна
+          ).toFixed(2)} ₴)</span>`;
+        }
+      }
+    });
+  }
+
+  openModal(addToCartModal);
+};
+
+// Кнопка "Додати до кошика" в модалці
+addToCartButton.addEventListener('click', () => {
+  if (currentProductToAdd) {
+    let quantity;
+    let variant = null;
+
+    if (weightSelect.classList.contains('hidden')) {
+      // Додаємо за кількістю
+      quantity = parseInt(quantityInput.value);
+      if (isNaN(quantity) || quantity <= 0) {
+        alert('Будь ласка, введіть дійсну кількість.');
+        return;
+      }
+    } else {
+      // Додаємо за вагою
+      variant = parseFloat(weightSelect.value);
+      quantity = 1; // Для варіантів ваги, кількість завжди 1, а вага - це "кількість"
+      if (isNaN(variant) || variant <= 0) {
+        alert('Будь ласка, виберіть дійсний варіант ваги.');
+        return;
+      }
+    }
+
+    addToCart(currentProductToAdd, quantity, variant);
+    closeModal(addToCartModal);
+  }
+});
+
+// Перехід до кошика з повідомлення про додавання
+goToCartBtn.addEventListener('click', () => {
+  closeModal(addToCartMessage);
+  openModal(cartModal);
+});
 
 //! --- Функції для обраних товарів ---
 
@@ -565,7 +1084,6 @@ const getLikedProducts = () => {
       JSON.parse(localStorage.getItem('fitcakes-liked-products')) || [];
     return likedProducts;
   } catch (e) {
-    console.error('Error loading likedProducts from Local Storage:', e);
     return [];
   }
 };
@@ -631,74 +1149,91 @@ const updateLikedProductsCount = () => {
   getLikedProducts();
   const totalItemsInLikedProductsList = likedProductsData.length;
   likedProductsCountSpan.textContent = totalItemsInLikedProductsList;
-  console.log('Update liked count:', totalItemsInLikedProductsList); // Added for debugging
 
   if (totalItemsInLikedProductsList > 0) {
     likedProductsCountSpan.style.display = 'flex';
   } else {
     likedProductsCountSpan.style.display = 'none';
   }
+};
 
-  console.log(likedProductsData);
+/**
+ * Відображає список обраних товарів у вказаному контейнері.
+ * @param {HTMLElement} container - Контейнер для відображення товарів.
+ */
+const renderLikedProducts = (container) => {
+  container.innerHTML = '';
+  
+  if (likedProductsData.length === 0) {
+    container.innerHTML = '<p>У вас немає обраних товарів.</p>';
+    return;
+  }
+
+  likedProductsData.forEach((product) => {
+    const likedItemDiv = document.createElement('div');
+    likedItemDiv.classList.add('liked-product-item');
+    likedItemDiv.innerHTML = `
+      <img src="./img/products/${product.images[0]}" alt="${
+      product.назва
+    }" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
+      <div class="liked-product-details">
+        <h4>${product.назва}</h4>
+        ${
+          product.кбжв ? `<p class="kbzhw">КБЖВ:</p><p>${product.кбжв}</p>` : ''
+        }
+        <p>Ціна: ${product.ціна} ₴${product.варіанти ? '/кг' : '/шт'}</p>
+      </div>
+      <div class="liked-product-actions">
+        <button class="go-to-product-btn" data-product-id="${
+          product.id
+        }">До товару</button>
+        <button class="remove-liked-btn" data-product-id="${
+          product.id
+        }">X</button>
+      </div>
+    `;
+    container.appendChild(likedItemDiv);
+  });
+
+  // Додаємо обробники подій
+  container.querySelectorAll('.remove-liked-btn').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      productToRemoveFromLiked = e.target.dataset.productId;
+      openModal(confirmModal);
+    });
+  });
+
+  container.querySelectorAll('.go-to-product-btn').forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const productId = e.target.dataset.productId;
+      closeModal(likedProductsModal);
+      const productElement = document.querySelector(`[data-product-id="${productId}"]`);
+      if (productElement) {
+        productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        productElement.classList.add('highlight-product');
+        setTimeout(() => {
+          productElement.classList.remove('highlight-product');
+        }, 2000);
+      }
+    });
+  });
 };
 
 /**
  * Відкриває модальне вікно "Обрані товари" та відображає їх.
  */
 const openLikedProductsModal = () => {
-  likedProductsList.innerHTML = '';
-  if (likedProductsData.length === 0) {
-    likedProductsList.innerHTML = '<p>У вас немає обраних товарів.</p>';
-  } else {
-    likedProductsData.forEach((product) => {
-      const likedItemDiv = document.createElement('div');
-      likedItemDiv.classList.add('liked-product-item');
-      likedItemDiv.innerHTML = `
-        <img src="././img/products/${product.images[0]}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-        <div class="liked-product-details">
-          <h4>${product.назва}</h4>
-          <p>${product.ціна} грн</p>
-        </div>
-        <div class="liked-product-actions">
-          <button class="go-to-product-btn" data-product-id="${product.id}">Перейти до товару</button>
-          <button class="remove-liked-btn" data-product-id="${product.id}">X</button>
-        </div>
-      `;
-      likedProductsList.appendChild(likedItemDiv);
-    });
+  renderLikedProducts(likedProductsList);
+  openModal(likedProductsModal);
+  updateLikedProductsCount();
+};
 
-    likedProductsList
-      .querySelectorAll('.remove-liked-btn')
-      .forEach((button) => {
-        button.addEventListener('click', (e) => {
-          productToRemoveFromLiked = e.target.dataset.productId;
-          openModal(confirmModal);
-        });
-      });
-
-    likedProductsList
-      .querySelectorAll('.go-to-product-btn')
-      .forEach((button) => {
-        button.addEventListener('click', (e) => {
-          const productId = e.target.dataset.productId;
-          closeModal(likedProductsModal); // Assuming likedProductsModal is defined elsewhere
-          const productElement = document.querySelector(
-            `[data-product-id="${productId}"]`
-          );
-          if (productElement) {
-            productElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-            });
-            productElement.classList.add('highlight-product');
-            setTimeout(() => {
-              productElement.classList.remove('highlight-product');
-            }, 2000);
-          }
-        });
-      });
-  }
-  openModal(likedProductsModal); // Assuming likedProductsModal is defined elsewhere
+/**
+ * Оновлює відображення обраних продуктів (для використання після видалення)
+ */
+const displayLikedProducts = () => {
+  renderLikedProducts(likedProductsList);
+  updateLikedProductsCount();
 };
 
 // Обробники для модального вікна підтвердження видалення
@@ -723,63 +1258,6 @@ confirmRemoveNoBtn.addEventListener('click', () => {
   closeModal(confirmModal); // Assuming closeModal is defined elsewhere
 });
 
-// Функція для оновлення відображення обраних продуктів (для використання після видалення)
-const displayLikedProducts = () => {
-  likedProductsList.innerHTML = '';
-  if (likedProductsData.length === 0) {
-    likedProductsList.innerHTML = '<p>У вас немає обраних товарів.</p>';
-  } else {
-    likedProductsData.forEach((product) => {
-      const likedItemDiv = document.createElement('div');
-      likedItemDiv.classList.add('liked-product-item');
-      likedItemDiv.innerHTML = `
-        <img src="./img/products/${product.images[0]}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-        <div class="liked-product-details">
-          <h4>${product.назва}</h4>
-          <p>${product.ціна} грн</p>
-        </div>
-        <div class="liked-product-actions">
-          <button class="go-to-product-btn" data-product-id="${product.id}">Перейти до товару</button>
-          <button class="remove-liked-btn" data-product-id="${product.id}">X</button>
-        </div>
-      `;
-      likedProductsList.appendChild(likedItemDiv);
-    });
-
-    likedProductsList
-      .querySelectorAll('.remove-liked-btn')
-      .forEach((button) => {
-        button.addEventListener('click', (e) => {
-          productToRemoveFromLiked = e.target.dataset.productId;
-          openModal(confirmModal);
-        });
-      });
-
-    likedProductsList
-      .querySelectorAll('.go-to-product-btn')
-      .forEach((button) => {
-        button.addEventListener('click', (e) => {
-          const productId = e.target.dataset.productId;
-          closeModal(likedProductsModal);
-          const productElement = document.querySelector(
-            `[data-product-id="${productId}"]`
-          );
-          if (productElement) {
-            productElement.scrollIntoView({
-              behavior: 'smooth',
-              block: 'center',
-            });
-            productElement.classList.add('highlight-product');
-            setTimeout(() => {
-              productElement.classList.remove('highlight-product');
-            }, 2000);
-          }
-        });
-      });
-  }
-  updateLikedProductsCount();
-};
-
 //! --- Функції для відображення товарів ---
 
 /**
@@ -790,21 +1268,47 @@ const displayLikedProducts = () => {
 const createProductCard = (product, index) => {
   const card = document.createElement('div');
   card.classList.add('product-card');
-  card.classList.add(index % 2 === 0 ? 'animate-left' : 'animate-right'); // Анімація
-  card.setAttribute('data-product-id', product.id); // Додаємо data-product-id до картки
+  card.classList.add(index % 2 === 0 ? 'animate-left' : 'animate-right');
+  card.setAttribute('data-product-id', product.id);
 
   const imagePath = `./img/products/${product.images[0]}`;
+
+  // Визначаємо акційну ціну
+  const discountInfo = getDiscountInfo(product.categoryId, product.назва);
+  const showOriginalPrice = discountInfo && discountInfo.type === 'product';
+  const currentPrice = showOriginalPrice
+    ? discountInfo.discountPrice
+    : product.ціна;
 
   card.innerHTML = `
     <div class="product-card-overlay-buttons">
       <button class="like-button" data-product-id="${product.id}"></button>
-      <button class="details-button" data-product-id="${product.id}"><i class="fas fa-info"></i></button>
+      <button class="details-button" data-product-id="${
+        product.id
+      }"><i class="fas fa-info"></i></button>
     </div>
-    <img src="${imagePath}" alt="${product.назва}" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-    <h3>${product.назва}</h3>
-    <p class="price">${product.ціна} ₴</p>
-    <div class="product-card-buttons">
-      <button class="buy-button" data-product-id="${product.id}">Замовити</button>
+    <div>
+      <img src="${imagePath}" alt="${
+    product.назва
+  }" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
+      <h3>${product.назва}</h3>
+    </div>
+    
+    <div>
+      <div class="price-container">
+        ${
+          showOriginalPrice
+            ? `<span class="original-price">${product.ціна} ₴</span>`
+            : ''
+        }
+        <p class="price">${currentPrice} ₴${product.варіанти ? '/кг' : '/шт'}</p>
+      </div>
+      ${product.кбжв ? `<p class="kbzhw">КБЖВ: <br>${product.кбжв}</p>` : ''}
+      <div class="product-card-buttons">
+        <button class="buy-button" data-product-id="${
+          product.id
+        }">Замовити</button>
+      </div>
     </div>
   `;
 
@@ -820,10 +1324,12 @@ const createProductCard = (product, index) => {
 
   card
     .querySelector('.buy-button')
-    .addEventListener('click', () => openAddToCartModal(product));
+    .addEventListener('click', () => openAddToCartModal(product, product.categoryId));
   card
     .querySelector('.details-button')
-    .addEventListener('click', () => openProductDetailsModal(product));
+    .addEventListener('click', () =>
+      openProductDetailsModal(product, product.categoryId)
+    );
 
   return card;
 };
@@ -1017,7 +1523,9 @@ const createHeroSlide = (product) => {
     })`;
 
     // Визначаємо текст акції та умови (за наявності)
-    let saleText = `(Знижка ${Math.round((1 - product.акція.ціна / product.ціна) * 100)}%)`;
+    let saleText = `(Знижка ${Math.round(
+      (1 - product.акція.ціна / product.ціна) * 100
+    )}%)`;
 
     slide.innerHTML = `
     <div class="hero-slide-content">
@@ -1029,7 +1537,7 @@ const createHeroSlide = (product) => {
             ${product.ціна}
           </span>
           <span class="current-price">
-            ${product.акція.ціна} ${product.варіанти ? 'грн/кг' : 'грн/шт'}
+            ${product.акція.ціна} ${product.варіанти ? '₴/кг' : '₴/шт'}
           </span>
         </div>
         <p class="sale-text">${saleText}</p>
@@ -1150,21 +1658,44 @@ const openProductDetailsModal = (product) => {
 
   const kbzhvValues = product.кбжв ? product.кбжв.split(' / ') : [];
 
-  // Формуємо HTML для акційної інформації
-  // Визначаємо текст акції та умови (за наявності)
-  
+  // Отримуємо інформацію про акцію
+  const discountInfo = getDiscountInfo(product.categoryId, product.назва);
+
   let saleInfoHtml = '';
-  if (product.акція) {
-    let saleText = `(Знижка ${Math.round(
+
+  // Акція на конкретний продукт
+  if (product.акція && isPromotionActive(product.акція.термін)) {
+    const discountPercent = Math.round(
       (1 - product.акція.ціна / product.ціна) * 100
-    )}%)`;
-    let saleCondition = product.акція.умова ? `* ${product.акція.умова}` : '';
-    
+    );
     saleInfoHtml = `
       <div class="sale-info">
-        <h4>Акція: ${saleText}</h4>
-        <p class="sale-info-condition"><strong>${saleCondition}</strong></p>
-        <p class="sale-info-date">Термін дії акції: до ${product.акція.термін}</p>
+        <h4>Акція: Знижка ${discountPercent}%</h4>
+        ${
+          product.акція.умова
+            ? `<p class="sale-info-condition"><strong>${product.акція.умова}</strong></p>`
+            : ''
+        }
+        <p class="sale-info-date">Термін дії акції: до ${
+          product.акція.термін
+        }</p>
+      </div>
+    `;
+  }
+  // Акція на категорію
+  else if (
+    productCategory?.акція &&
+    isPromotionActive(productCategory.акція.термін)
+  ) {
+    saleInfoHtml = `
+      <div class="sale-info">
+        <h4>Акція на категорію "${productCategory.category}"</h4>
+        ${productCategory.акція.умови
+          .map((condition) => `<p>${condition}</p>`)
+          .join('')}
+        <p class="sale-info-date">Термін дії акції: до ${
+          productCategory.акція.термін
+        }</p>
       </div>
     `;
   }
@@ -1177,13 +1708,13 @@ const openProductDetailsModal = (product) => {
       <h3>${product.назва}</h3>
       <div class="price-container">
         ${
-          product.акція
-            ? `<span class="original-price">${product.ціна}</span>`
+          discountInfo
+            ? `<span class="original-price">${product.ціна} ₴</span>`
             : ''
         }
-        <span class="current-price">${product.акція?.ціна || product.ціна} ${
-    product.варіанти ? 'грн/кг' : 'грн/шт'
-  }</span>
+        <span class="current-price">${
+          discountInfo ? discountInfo.discountPrice : product.ціна
+        } ${product.варіанти ? '₴/кг' : '₴/шт'}</span>
       </div>
       ${saleInfoHtml}
       ${product.опис ? `<p><strong>Опис:</strong> ${product.опис}</p>` : ''}
@@ -1195,8 +1726,10 @@ const openProductDetailsModal = (product) => {
       ${product.кбжв ? `<p>Вуглеводів - ${kbzhvValues[3]}</p>` : ''}
       ${
         productCategory && productCategory.categoryDescription
-          ? `<p><strong>Категорія:</strong> ${productCategory.category}</p>
-           <p>${productCategory.categoryDescription.join(' ')}</p>`
+          ? `
+        <p><strong>Категорія:</strong> ${productCategory.category}</p>
+        <p>${productCategory.categoryDescription.join(' ')}</p>
+      `
           : ''
       }
       <button class="buy-button add-to-cart-from-details" data-product-id="${
@@ -1217,59 +1750,7 @@ const openProductDetailsModal = (product) => {
   openModal(productDetailsModal);
 };
 
-/**
- * Відкриває модальне вікно додавання в кошик.
- * @param {Object} product - Об'єкт товару.
- */
-const openAddToCartModal = (product) => {
-  currentProductToAdd = product;
-  addToCartProductName.textContent = product.назва;
-  addToCartProductPrice.textContent = `${product.ціна} грн`;
-
-  // Очищаємо попередні опції
-  quantityInput.classList.add('hidden');
-  weightSelect.classList.add('hidden');
-  weightSelect.innerHTML = '';
-
-  if (product.вага && product.вага.length > 0) {
-    weightSelect.classList.remove('hidden');
-    product.вага.forEach((weight) => {
-      const option = document.createElement('option');
-      option.value = weight.value;
-      option.textContent = weight.label;
-      weightSelect.appendChild(option);
-    });
-    // Ініціалізуємо ціну на основі першого варіанту ваги
-    addToCartProductPrice.textContent = `${
-      product.вага[0].value * product.ціна
-    } грн`;
-    weightSelect.addEventListener('change', (e) => {
-      const selectedWeight = parseFloat(e.target.value);
-      addToCartProductPrice.textContent = `${(
-        selectedWeight * product.ціна
-      ).toFixed(2)} грн`;
-    });
-  } else {
-    quantityInput.classList.remove('hidden');
-    // Оновлюємо ціну, якщо це одиничний товар з інпутом кількості
-    addToCartProductPrice.textContent = `${product.ціна} грн`;
-    quantityInput.value = 1; // Скидаємо кількість до 1 при відкритті модалки
-    quantityInput.addEventListener('input', (e) => {
-      const qty = parseInt(e.target.value);
-      if (!isNaN(qty) && qty > 0) {
-        addToCartProductPrice.textContent = `${(qty * product.ціна).toFixed(
-          2
-        )} грн`;
-      } else {
-        addToCartProductPrice.textContent = `${product.ціна.toFixed(2)} грн`;
-      }
-    });
-  }
-
-  openModal(addToCartModal);
-};
-
-// --- Обробники подій ---
+//! --- Обробники подій ---
 
 // Закриття модалок по кліку на X
 closeButtons.forEach((button) => {
@@ -1291,7 +1772,6 @@ document
   .addEventListener('click', (e) => {
     e.preventDefault();
     openModal(contactsModal);
-    console.log('contacts clicked');
   });
 
 document
@@ -1301,39 +1781,6 @@ document
     displayCartItems();
     openModal(cartModal);
   });
-
-// Кнопка "Додати до кошика" в модалці
-addToCartButton.addEventListener('click', () => {
-  if (currentProductToAdd) {
-    let quantity;
-    let variant = null;
-
-    if (weightSelect.classList.contains('hidden')) {
-      // Додаємо за кількістю
-      quantity = parseInt(quantityInput.value);
-      if (isNaN(quantity) || quantity <= 0) {
-        alert('Будь ласка, введіть дійсну кількість.');
-        return;
-      }
-    } else {
-      // Додаємо за вагою
-      variant = parseFloat(weightSelect.value);
-      quantity = 1; // Для варіантів ваги, кількість завжди 1, а вага - це "кількість"
-      if (isNaN(variant) || variant <= 0) {
-        alert('Будь ласка, виберіть дійсний варіант ваги.');
-        return;
-      }
-    }
-    addToCart(currentProductToAdd, quantity, variant);
-    closeModal(addToCartModal);
-  }
-});
-
-// Перехід до кошика з повідомлення про додавання
-goToCartBtn.addEventListener('click', () => {
-  closeModal(addToCartMessage);
-  openModal(cartModal);
-});
 
 //! Burger menu
 
@@ -1517,15 +1964,14 @@ const populateMobileMenuCategories = () => {
  * Відображає повідомлення "Товар додано до кошика!"
  */
 const showAddToCartMessage = () => {
-  addToCartMessage.classList.remove('hide'); // Ensure it's not hidden
+  addToCartMessage.classList.remove('hide');
   addToCartMessage.classList.add('show');
   messageTimerBar.style.width = '100%';
   messageTimerBar.style.transition = 'width 3s linear';
-  console.log('timer');
 
   setTimeout(() => {
     addToCartMessage.classList.remove('show');
-    addToCartMessage.classList.add('hide'); // Add hide class to trigger slideOutRight
+    addToCartMessage.classList.add('hide');
     messageTimerBar.style.transition = 'none';
     messageTimerBar.style.width = '0%';
   }, 3000); // Повідомлення зникає через 3 секунди
@@ -1565,6 +2011,4 @@ document.addEventListener('DOMContentLoaded', () => {
     const productId = button.dataset.productId;
     updateLikeButtonIcon(button, productId);
   });
-
-  console.log(likedProductsData);
 });
