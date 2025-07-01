@@ -864,6 +864,10 @@ button:active {
   box-sizing: border-box;
 }
 
+.product-card.highlight-product {
+  border: 3px solid var(--secondary-color);
+}
+
 /* Анімація появи карток */
 .product-card.visible {
   opacity: 1;
@@ -947,6 +951,7 @@ button:active {
 
 .product-card img {
   width: 100%;
+  max-height: 40%;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -1090,7 +1095,6 @@ button:active {
   background-color: var(--modal-bg); /* Black w/ opacity */
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
 .modal-content {
@@ -1241,7 +1245,7 @@ button:active {
   background-color: var(--card-background);
 }
 
-/* Cart Modal Specifics */
+/*! Cart Modal Specifics */
 .cart-items {
   max-height: 400px;
   overflow-y: auto;
@@ -1252,18 +1256,23 @@ button:active {
 }
 
 .cart-item {
-  display: flex;
-  align-items: center;
   margin-bottom: 15px;
   padding-bottom: 10px;
   border-bottom: 1px dashed var(--border-color);
 }
 
-.cart-item:last-child {
+.cart-item-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding-bottom: 5;
+}
+
+.cart-item-container:last-child {
   border-bottom: none;
 }
 
-.cart-item img {
+.cart-item-container img {
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -1288,6 +1297,7 @@ button:active {
 
 .cart-item-controls {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 10px;
 }
@@ -1330,14 +1340,13 @@ button:active {
   font-size: 1.1em;
 }
 
-/* Cart Modal Specifics */
 
 .cart-category-title {
   margin: 20px 0 10px;
   padding-bottom: 5px;
   border-bottom: 1px solid #eee;
   font-size: 1.2rem;
-  color: #333;
+  color: var(--primary-color);
 }
 
 .cart-discount-info {
@@ -1393,6 +1402,31 @@ button:active {
 
 .product-details-text p strong {
   color: var(--secondary-color);
+}
+
+/* кбжв */
+.nutrition-info {
+  font-size: 0.8em;
+  color: var(--secondary-color);
+  margin-top: 5px;
+}
+
+.total-nutrition {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--slogan-background);
+  border-radius: 5px;
+}
+
+.total-nutrition h4 {
+  margin-bottom: 10px;
+  color: var(--slogan-text-color);
+}
+
+.total-nutrition p {
+  margin: 5px 0;
+  color: var(--slogan-text-color);
+  font-size: 0.9em;
 }
 
 /*! Add to cart modal specifics */

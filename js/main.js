@@ -294,7 +294,7 @@ const products = [
         ціна: 90,
         склад:
           'Борошно клейкого рису, кукурудзяний крохмаль, оливкова олія, крем-сир, полуниця, протеїн, вершки, протеїновий полуничний йогури, шоколад без цукру, стевія, еритрол',
-        кбжв: '100.5 / 3.5 / 5.14 / 11.7',
+        кбжв: '125.63 / 4.38 / 6.43 / 14.63',
         вага: '80',
         images: ['fit-moti-polunytsia1.jpg'],
         categoryId: 'fit-moti',
@@ -320,7 +320,7 @@ const products = [
         categoryId: 'fit-moti',
       },
       {
-        назва: 'Манго-маракуя-кокос',
+        назва: 'Чорна смородина',
         ціна: 90,
         склад:
           'Борошно клейкого рису, смородина, кукурудзяний крохмаль, оливкова олія, крем-сир, протеїн, вершки, желатин, ваніль, шоколад без цукру, стевія, еритрол',
@@ -364,7 +364,7 @@ const products = [
         ціна: 90,
         склад:
           'Карамель без цукру, кава, желатин, кокосове масло, сир рікотта, вершковий сир, протеїн, яєчний білок, соєвий білок, протеїн, молоко, білий шоколад без цукру, борошно клейкого рису, оливкова олія, стевія, еритрол',
-        кбжв: '100 / 6.6 / 3.4 / 11.2',
+        кбжв: '104,3 / 6.8 / 4 / 10.8',
         вага: '80',
         images: ['fit-moti-kava1.jpg'],
         categoryId: 'fit-moti',
@@ -504,6 +504,7 @@ let productToRemoveFromLiked = null; // Declare this variable globally or in a s
 const cartIcon = document.querySelector('.cart-icon');
 const cartCountSpan = document.querySelector('.cart-count');
 const cartItemsContainer = cartModal.querySelector('.cart-items');
+const cartTotalNutritionElement = document.getElementById('cart-total-kbzhw');
 const cartTotalItemsSpan = cartModal.querySelector('.cart-total-items');
 const cartTotalPriceSpan = cartModal.querySelector('.cart-total-price');
 
@@ -652,6 +653,45 @@ const getDiscountInfo = (categoryId, productName = null, quantity = 1) => {
   return null; // Акція не знайдена
 };
 
+// Функція для розрахунку КБЖВ
+const calculateNutrition = (product, quantity, variant = null) => {
+  if (!product.кбжв) return null;
+  
+  const [calories, proteins, fats, carbs] = product.кбжв.split(' / ').map(Number);
+  
+  // Для вагових товарів (торти)
+  if (variant !== null) {
+    const weightInGrams = variant * 1000; // переводимо кг в грами
+    const multiplier = weightInGrams / 100; // кбжв вказано на 100г
+    return {
+      calories: (calories * multiplier).toFixed(1),
+      proteins: (proteins * multiplier).toFixed(1),
+      fats: (fats * multiplier).toFixed(1),
+      carbs: (carbs * multiplier).toFixed(1)
+    };
+  }
+  
+  // Для товарів, що продаються поштучно
+  if (product.вага) {
+    const weightInGrams = parseFloat(product.вага);
+    const multiplier = (weightInGrams * quantity) / 100;
+    return {
+      calories: (calories * multiplier).toFixed(1),
+      proteins: (proteins * multiplier).toFixed(1),
+      fats: (fats * multiplier).toFixed(1),
+      carbs: (carbs * multiplier).toFixed(1)
+    };
+  }
+  
+  // Для товарів без ваги (наприклад, цукерки)
+  return {
+    calories: (calories * quantity).toFixed(1),
+    proteins: (proteins * quantity).toFixed(1),
+    fats: (fats * quantity).toFixed(1),
+    carbs: (carbs * quantity).toFixed(1)
+  };
+};
+
 const saveCart = (cart) => {
   localStorage.setItem('fitcakes-cart', JSON.stringify(cart));
 };
@@ -703,6 +743,9 @@ const addToCart = (product, quantity, variant = null) => {
   let isPromo = false;
   let discountInfo = null;
 
+  // Розраховуємо КБЖВ
+  const nutrition = calculateNutrition(product, quantity, variant);
+
   // Перевіряємо акцію на продукт
   discountInfo = getDiscountInfo(product.categoryId, product.назва, quantity);
 
@@ -713,7 +756,7 @@ const addToCart = (product, quantity, variant = null) => {
 
   // Для вагових товарів
   if (variant !== null) {
-    price = price * variant; // Використовуємо вже акційну ціну (якщо є)
+    price = price * variant;
     quantity = 1;
   }
 
@@ -724,6 +767,14 @@ const addToCart = (product, quantity, variant = null) => {
   if (existingItem) {
     existingItem.quantity += quantity;
     existingItem.totalPrice = existingItem.quantity * price;
+    // Оновлюємо КБЖВ
+    if (nutrition) {
+      existingItem.nutrition = calculateNutrition(
+        product,
+        existingItem.quantity,
+        variant
+      );
+    }
   } else {
     cart.push({
       itemId,
@@ -738,6 +789,7 @@ const addToCart = (product, quantity, variant = null) => {
       category: product.categoryId,
       isWeighted: !!product.варіанти,
       isPromo: isPromo,
+      nutrition: nutrition,
     });
   }
 
@@ -751,7 +803,6 @@ const addToCart = (product, quantity, variant = null) => {
       0
     );
 
-    // Отримуємо інформацію про знижку для всієї категорії
     const categoryDiscount = getDiscountInfo(
       product.categoryId,
       null,
@@ -785,7 +836,16 @@ const updateCartItemQuantity = (itemId, newQuantity) => {
   if (item && !item.isWeighted) {
     item.quantity = newQuantity;
 
-    // Спочатку перевіряємо акцію на конкретний товар
+    // Оновлюємо КБЖВ
+    const product = products
+      .find((p) => p.categoryId === item.category)
+      ?.categoryList.find((p) => p.назва === item.name);
+
+    if (product) {
+      item.nutrition = calculateNutrition(product, newQuantity);
+    }
+
+    // Решта коду залишається без змін...
     const productDiscount = getDiscountInfo(
       item.category,
       item.name,
@@ -797,7 +857,6 @@ const updateCartItemQuantity = (itemId, newQuantity) => {
       item.totalPrice = newQuantity * item.price;
       item.isPromo = true;
     } else {
-      // Якщо немає акції на товар, перевіряємо акцію на категорію
       const categoryItems = cart.filter(
         (i) => i.category === item.category && !i.isWeighted
       );
@@ -819,7 +878,6 @@ const updateCartItemQuantity = (itemId, newQuantity) => {
           i.isPromo = true;
         });
       } else {
-        // Якщо знижка більше не застосовується, повертаємо оригінальні ціни
         item.price = item.originalPrice;
         item.totalPrice = newQuantity * item.price;
         item.isPromo = false;
@@ -834,15 +892,20 @@ const updateCartItemQuantity = (itemId, newQuantity) => {
 
 const displayCartItems = () => {
   cartItemsContainer.innerHTML = '';
+  let totalPrice = 0;
+  let totalItems = 0;
+  let totalNutrition = {
+    calories: 0,
+    proteins: 0,
+    fats: 0,
+    carbs: 0,
+  };
 
   if (cart.length === 0) {
     cartItemsContainer.innerHTML = '<p>Ваш кошик порожній</p>';
     checkoutButton.style.display = 'none';
     return;
   }
-
-  let totalPrice = 0;
-  let totalItems = 0;
 
   // Групуємо товари по категоріям
   const categories = [...new Set(cart.map((item) => item.category))];
@@ -892,20 +955,43 @@ const displayCartItems = () => {
           ? `${(item.price / item.variant).toFixed(2)} ₴/кг`
           : `${item.price} ₴/шт.`;
 
+      // Додаємо інформацію про КБЖВ
+      let nutritionHTML = '';
+      if (item.nutrition) {
+        nutritionHTML = `
+          <div class="nutrition-info">
+            КБЖВ: ${item.nutrition.calories} / ${item.nutrition.proteins} / ${item.nutrition.fats} / ${item.nutrition.carbs}
+          </div>
+        `;
+
+        // Додаємо до загального КБЖВ
+        totalNutrition.calories += parseFloat(item.nutrition.calories);
+        totalNutrition.proteins += parseFloat(item.nutrition.proteins);
+        totalNutrition.fats += parseFloat(item.nutrition.fats);
+        totalNutrition.carbs += parseFloat(item.nutrition.carbs);
+      }
+
       itemElement.innerHTML = `
-        <img src="./img/products/${item.image}" alt="${
-        item.name
-      }" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-        <div class="cart-item-details">
-          <h4>${item.name}</h4>
-          <p>${variantText}</p>
-          <p class="cart-item-total">${item.totalPrice.toFixed(2)} ₴</p>
-          <small>${pricePerUnit}</small>
+      <div class="cart-item-container">
+        <div>                  
           ${
             item.isPromo && !bulkDiscount
               ? '<span class="promo-badge">Акція</span>'
               : ''
           }
+          <img
+            src="./img/products/${item.image}"
+            alt="${item.name}" 
+            onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'"
+          >          
+        </div>
+        
+        <div class="cart-item-details">
+          <h4>${item.name}</h4>
+          <p>${variantText}</p>
+          <p class="cart-item-total">${item.totalPrice.toFixed(2)} ₴</p>
+          <small>${pricePerUnit}</small>
+
         </div>
         <div class="cart-item-controls">
           ${
@@ -919,6 +1005,8 @@ const displayCartItems = () => {
             item.itemId
           }">×</button>
         </div>
+      </div>
+      ${nutritionHTML}
       `;
 
       cartItemsContainer.appendChild(itemElement);
@@ -926,6 +1014,16 @@ const displayCartItems = () => {
       totalItems += item.quantity;
     });
   });
+
+  console.log(cartTotalNutritionElement);
+  
+  // Додаємо загальне КБЖВ
+  cartTotalNutritionElement.innerHTML = `
+    <span>${totalNutrition.calories.toFixed(1)} </span>
+    <span> / ${totalNutrition.proteins.toFixed(1)} </span>
+    <span> / ${totalNutrition.fats.toFixed(1)}</span> 
+    <span> / ${totalNutrition.carbs.toFixed(1)}</span>
+  `;
 
   // Обробники подій
   cartItemsContainer.querySelectorAll('.item-quantity').forEach((input) => {
