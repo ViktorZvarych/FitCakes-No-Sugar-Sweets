@@ -838,8 +838,10 @@ button:active {
 .category-cards-grid {
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(152px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  padding: 5px;
+  max-width: 1200px;
 }
 
 .product-card {
@@ -848,23 +850,63 @@ button:active {
   box-shadow: 0 4px 10px var(--box-shadow);
   overflow: hidden;
   text-align: center;
-  width: 150px;
-  margin: 15px 5px;
-  padding: 9% 5%;
+  width: 100%; /* Займає всю доступну ширину в сітці */
+  max-height: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   opacity: 0;
   transform: translateY(20px);
-  position: relative; /* для позиціонування кнопок-оверлеїв */
+  position: relative;
+  padding: 12px;
+  box-sizing: border-box;
+}
 
-  @media (min-width: 768px) {
-    width: 200px;
+/* Анімація появи карток */
+.product-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ховер-ефекти для десктопів */
+@media (hover: hover) {
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px var(--box-shadow-hover);
   }
+}
 
-  @media (min-width: 1024px) {
-    width: 220px;
+/* Адаптація для планшетів */
+@media (min-width: 600px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .product-card {
+    padding: 16px;
+  }
+}
+
+/* Адаптація для десктопів */
+@media (min-width: 900px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+  }
+  
+  .product-card {
+    padding: 20px;
+  }
+}
+
+/* Для дуже великих екранів */
+@media (min-width: 1200px) {
+  .category-cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 }
 
@@ -904,7 +946,7 @@ button:active {
 }
 
 .product-card img {
-  max-width: 100%;
+  width: 100%;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 15px;

@@ -615,7 +615,6 @@ const getDiscountInfo = (categoryId, productName = null, quantity = 1) => {
 
   // 2. Перевіряємо оптову знижку на категорію
   if (category?.акція?.умови && isPromotionActive(category.акція.термін)) {
-
     const bulkConditions = category.акція.умови
       .map((condition) => {
         const [qtyStr, priceStr] = condition.split(' - ');
@@ -777,8 +776,8 @@ const addToCart = (product, quantity, variant = null) => {
 const removeFromCart = (itemId) => {
   cart = cart.filter((item) => item.itemId !== itemId);
   saveCart(cart);
-  updateCartCount();
   displayCartItems();
+    updateCartCount();
 };
 
 const updateCartItemQuantity = (itemId, newQuantity) => {
@@ -1163,7 +1162,7 @@ const updateLikedProductsCount = () => {
  */
 const renderLikedProducts = (container) => {
   container.innerHTML = '';
-  
+
   if (likedProductsData.length === 0) {
     container.innerHTML = '<p>У вас немає обраних товарів.</p>';
     return;
@@ -1207,7 +1206,9 @@ const renderLikedProducts = (container) => {
     button.addEventListener('click', (e) => {
       const productId = e.target.dataset.productId;
       closeModal(likedProductsModal);
-      const productElement = document.querySelector(`[data-product-id="${productId}"]`);
+      const productElement = document.querySelector(
+        `[data-product-id="${productId}"]`
+      );
       if (productElement) {
         productElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
         productElement.classList.add('highlight-product');
@@ -1287,12 +1288,14 @@ const createProductCard = (product, index) => {
         product.id
       }"><i class="fas fa-info"></i></button>
     </div>
-    <div>
-      <img src="${imagePath}" alt="${
-    product.назва
-  }" onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'">
-      <h3>${product.назва}</h3>
-    </div>
+
+    <img
+      src="${imagePath}" 
+      alt="${product.назва}" 
+      onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'"
+    >
+
+    <h3>${product.назва}</h3>
     
     <div>
       <div class="price-container">
@@ -1301,9 +1304,11 @@ const createProductCard = (product, index) => {
             ? `<span class="original-price">${product.ціна} ₴</span>`
             : ''
         }
-        <p class="price">${currentPrice} ₴${product.варіанти ? '/кг' : '/шт'}</p>
+        <p class="price">${currentPrice} ₴${
+    product.варіанти ? '/кг' : '/шт'
+  }</p>
       </div>
-      ${product.кбжв ? `<p class="kbzhw">КБЖВ: <br>${product.кбжв}</p>` : ''}
+
       <div class="product-card-buttons">
         <button class="buy-button" data-product-id="${
           product.id
@@ -1324,7 +1329,9 @@ const createProductCard = (product, index) => {
 
   card
     .querySelector('.buy-button')
-    .addEventListener('click', () => openAddToCartModal(product, product.categoryId));
+    .addEventListener('click', () =>
+      openAddToCartModal(product, product.categoryId)
+    );
   card
     .querySelector('.details-button')
     .addEventListener('click', () =>
