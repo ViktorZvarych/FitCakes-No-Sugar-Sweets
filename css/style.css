@@ -977,19 +977,23 @@ button:active {
   margin-bottom: 15px;
 }
 
+.product-card-footer {
+  width: 100%;
+}
+
 .product-card-buttons {
   display: flex;
   justify-content: center; /* Центруємо кнопку "Замовити" */
   gap: 10px;
   margin-top: auto; /* Притискає кнопки до низу картки */
-  width: 100%; /* Займає всю ширину */
+  width: 100%;
 }
 
 .product-card-buttons .buy-button {
-  flex: 1; /* Займає всю доступну ширину */
-  padding: 10px 15px;
-  font-size: 1.1em;
-  max-width: 100%; /* Гарантуємо, що кнопка займе всю ширину */
+  flex: 1;
+  padding: 3px 15px;
+  font-size: 1.6em;
+  width: 100%;
 }
 
 /* Нові стилі для кнопок overlay */
@@ -1097,10 +1101,10 @@ button:active {
   align-items: center;
 }
 
-.modal-content {
+.modal-content{
   background-color: var(--modal-content-bg);
   margin: auto;
-  padding: 30px;
+  padding: 20px;
   border-radius: 10px;
   width: 90%;
   max-width: 600px;
@@ -1138,6 +1142,12 @@ button:active {
   color: var(--primary-color);
   text-decoration: none;
   cursor: pointer;
+}
+
+.cart-summary  {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 /*! Стилі для модального вікна обраних товарів */
@@ -1262,10 +1272,25 @@ button:active {
 }
 
 .cart-item-container {
+  width: 100%;
   display: flex;
+  gap: 10px;
   align-items: center;
+  justify-content: space-between;
   margin-bottom: 10px;
   padding-bottom: 5;
+}
+
+.cart-item-container div:first-child {
+  flex: 3;
+}
+
+.cart-item-container div:nth-child(2) {
+  flex: 6;
+}
+
+.cart-item-container div:last-child {
+  flex: 1;
 }
 
 .cart-item-container:last-child {
@@ -1311,6 +1336,99 @@ button:active {
   background-color: var(--background-color);
   color: var(--text-color);
 }
+
+/* Стилі для числового поля з кнопками +/- */
+.number-input {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background);
+  box-shadow: 0 2px 5px var(--box-shadow);
+  transition: all var(--animation-duration) ease;
+}
+
+.number-input:hover {
+  border-color: var(--hover-color);
+}
+
+.number-input input[type="number"] {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  width: 36px;
+  padding: 8px 0;
+  border: none;
+  font-size: 16px;
+  text-align: center;
+  color: var(--text-color);
+  background-color: transparent;
+}
+
+.number-input input[type="number"]:focus {
+  outline: none;
+}
+
+/* Прибираємо стандартні стрілки */
+.number-input input[type="number"]::-webkit-outer-spin-button,
+.number-input input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Стилі для кастомних кнопок */
+.number-input button {
+  width: 24px;
+  height: 36px;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--animation-duration) ease;
+}
+
+.number-input button:hover {
+  background-color: var(--hover-color);
+}
+
+.number-input button:active {
+  transform: translateY(1px);
+}
+
+.number-input button.minus {
+  border-radius: 5px 0 0 5px;
+}
+
+.number-input button.plus {
+  border-radius: 0 5px 5px 0;
+}
+
+/* Адаптація для темної теми */
+.dark-theme .number-input {
+  border-color: var(--slogan-background);
+}
+
+.dark-theme .number-input input[type="number"] {
+  color: var(--button-text);
+}
+
+.dark-theme .number-input button {
+  background-color: var(--button-bg);
+  color: var(--button-text);
+}
+
+.dark-theme .number-input button:hover {
+  background-color: var(--hover-color);
+}
+
+
 
 .cart-item-controls .remove-item-btn {
   background-color: #dc3545;
@@ -1538,7 +1656,84 @@ button:active {
   }
 }
 
-/* Contacts Modal */
+/*! KBZHW Calculator */
+
+#kbzhwModal .modal-content {
+  max-width: 500px;
+  padding: 25px;
+}
+
+#kbzhwForm {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Дві колонки однакової ширини */
+  gap: 20px;
+}
+
+#kbzhwModal .input-group.checkbox-group {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
+
+  input {
+    width: auto; /* Зменшуємо ширину чекбоксу */
+    margin-right: 5px; /* Відступ між чекбоксом і лейблом */
+  }
+}
+
+/* Стилі для чекбоксу та кнопки, щоб вони займали обидві колонки */
+#kbzhwModal .checkbox-group,
+#kbzhwModal button[type="submit"] {
+  grid-column: span 2;
+}
+
+#kbzhwModal .input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+#kbzhwModal .input-group input,
+#kbzhwModal .input-group select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid var(--border-color);
+  background-color: var(--modal-content-bg);
+  color: var(--text-color);
+  font-family: var(--font-family);
+}
+
+#kbzhwModal button[type="submit"] {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+}
+
+#kbzhwModal .results {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: var(--background-color);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+#kbzhwModal .results h3 {
+  margin-bottom: 10px;
+  color: var(--primary-color);
+}
+
+#kbzhwModal .results p {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+#kbzhwModal .results strong {
+  color: var(--primary-color);
+}
+
+/*! Contacts Modal */
 #contacts-modal .social-links {
   margin-top: 20px;
 }
@@ -1634,7 +1829,8 @@ button:active {
 }
 
 .faq-item.active .faq-answer {
-  max-height: 300px;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 /*! --- ABOUT SECTION --- */

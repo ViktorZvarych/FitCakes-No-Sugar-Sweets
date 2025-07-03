@@ -490,6 +490,8 @@ const likedProductsModal = document.getElementById('likedProductsModal');
 const openLikedProductsModalBtn = document.getElementById(
   'openLikedProductsModalBtn'
 );
+const kbzhwModal = document.getElementById('kbzhwModal');
+const openkbzhwModalBtn = document.getElementById('openkbzhwModalBtn');
 
 // Liked products
 let likedProductsData = [];
@@ -516,6 +518,8 @@ const addToCartProductPrice = addToCartModal.querySelector(
   '.add-to-cart-product-price'
 );
 const quantityInput = addToCartModal.querySelector('#quantity-input');
+const quantityInputMinus = addToCartModal.querySelector('.quantity-input-minus');
+const quantityInputPlus = addToCartModal.querySelector('.quantity-input-plus');
 const weightSelect = addToCartModal.querySelector('#weight-select');
 const addToCartButton = addToCartModal.querySelector('.add-to-cart-btn');
 
@@ -828,7 +832,23 @@ const removeFromCart = (itemId) => {
   cart = cart.filter((item) => item.itemId !== itemId);
   saveCart(cart);
   displayCartItems();
-    updateCartCount();
+  updateCartCount();
+
+  // Додаткова перевірка, якщо кошик порожній
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML = '<p>Ваш кошик порожній</p>';
+    cartTotalPriceSpan.textContent = '0.00';
+    cartTotalItemsSpan.textContent = '0';
+    checkoutButton.style.display = 'none';
+
+    // Очищаємо загальне КБЖВ
+    cartTotalNutritionElement.innerHTML = `
+      <span>0</span>
+      <span> / 0</span>
+      <span> / 0</span> 
+      <span> / 0</span>
+    `;
+  }
 };
 
 const updateCartItemQuantity = (itemId, newQuantity) => {
@@ -892,6 +912,25 @@ const updateCartItemQuantity = (itemId, newQuantity) => {
 
 const displayCartItems = () => {
   cartItemsContainer.innerHTML = '';
+
+  // Перевірка на порожній кошик
+  if (cart.length === 0) {
+    cartItemsContainer.innerHTML =
+      '<p class="empty-cart-message">Ваш кошик порожній</p>';
+    cartTotalPriceSpan.textContent = '0.00';
+    cartTotalItemsSpan.textContent = '0';
+    checkoutButton.style.display = 'none';
+
+    // Очищення загального КБЖВ
+    cartTotalNutritionElement.innerHTML = `
+      <span>0</span>
+      <span> / 0</span>
+      <span> / 0</span> 
+      <span> / 0</span>
+    `;
+    return;
+  }
+
   let totalPrice = 0;
   let totalItems = 0;
   let totalNutrition = {
@@ -900,12 +939,6 @@ const displayCartItems = () => {
     fats: 0,
     carbs: 0,
   };
-
-  if (cart.length === 0) {
-    cartItemsContainer.innerHTML = '<p>Ваш кошик порожній</p>';
-    checkoutButton.style.display = 'none';
-    return;
-  }
 
   // Групуємо товари по категоріям
   const categories = [...new Set(cart.map((item) => item.category))];
@@ -973,7 +1006,7 @@ const displayCartItems = () => {
 
       itemElement.innerHTML = `
       <div class="cart-item-container">
-        <div>                  
+        <div class="cart-item-image">                  
           ${
             item.isPromo && !bulkDiscount
               ? '<span class="promo-badge">Акція</span>'
@@ -983,7 +1016,7 @@ const displayCartItems = () => {
             src="./img/products/${item.image}"
             alt="${item.name}" 
             onerror="this.onerror=null;this.src='./img/icons/heart-icon.svg'"
-          >          
+          >
         </div>
         
         <div class="cart-item-details">
@@ -991,19 +1024,23 @@ const displayCartItems = () => {
           <p>${variantText}</p>
           <p class="cart-item-total">${item.totalPrice.toFixed(2)} ₴</p>
           <small>${pricePerUnit}</small>
-
         </div>
+
         <div class="cart-item-controls">
+          <button class="remove-item-btn" data-item-id="${item.itemId}">
+            ×
+          </button>
           ${
             !item.isWeighted
               ? `
-            <input type="number" min="1" value="${item.quantity}" class="item-quantity" data-item-id="${item.itemId}">
-          `
+                <div class="number-input">
+                  <button class="minus">-</button>
+                  <input type="number" min="1" value="${item.quantity}" class="item-quantity" data-item-id="${item.itemId}">
+                  <button class="plus">+</button>
+                </div>            
+              `
               : ''
           }
-          <button class="remove-item-btn" data-item-id="${
-            item.itemId
-          }">×</button>
         </div>
       </div>
       ${nutritionHTML}
@@ -1015,9 +1052,29 @@ const displayCartItems = () => {
     });
   });
 
-  console.log(cartTotalNutritionElement);
-  
-  // Додаємо загальне КБЖВ
+  document.querySelectorAll('.cart-item-controls .number-input .minus').forEach((btn) => {
+    btn.addEventListener('click', function () {
+      const input = this.nextElementSibling;
+      const newQuantity = parseInt(input.value) - 1;
+      if (newQuantity >= 1) {
+        input.value = newQuantity;
+        updateCartItemQuantity(input.dataset.itemId, newQuantity);
+      }
+    });
+  });
+
+  document
+    .querySelectorAll('.cart-item-controls .number-input .plus')
+    .forEach((btn) => {
+      btn.addEventListener('click', function () {
+        const input = this.previousElementSibling;
+        const newQuantity = parseInt(input.value) + 1;
+        input.value = newQuantity;
+        updateCartItemQuantity(input.dataset.itemId, newQuantity);
+      });
+    });
+
+  // Оновлюємо загальні показники
   cartTotalNutritionElement.innerHTML = `
     <span>${totalNutrition.calories.toFixed(1)} </span>
     <span> / ${totalNutrition.proteins.toFixed(1)} </span>
@@ -1025,9 +1082,15 @@ const displayCartItems = () => {
     <span> / ${totalNutrition.carbs.toFixed(1)}</span>
   `;
 
+  cartTotalPriceSpan.textContent = totalPrice.toFixed(2);
+  cartTotalItemsSpan.textContent = totalItems;
+  checkoutButton.style.display = 'block';
+
   // Обробники подій
   cartItemsContainer.querySelectorAll('.item-quantity').forEach((input) => {
     input.addEventListener('change', (e) => {
+      console.log('chnge');
+      
       const newQuantity = parseInt(e.target.value);
       if (newQuantity > 0) {
         updateCartItemQuantity(e.target.dataset.itemId, newQuantity);
@@ -1042,28 +1105,41 @@ const displayCartItems = () => {
       removeFromCart(e.target.dataset.itemId);
     });
   });
-
-  cartTotalPriceSpan.textContent = totalPrice.toFixed(2);
-  cartTotalItemsSpan.textContent = totalItems;
-  checkoutButton.style.display = 'block';
 };
 
 /**
  * Відкриває модальне вікно додавання в кошик
  * @param {Object} product - Об'єкт товару
  */
+let minusHandler, plusHandler, inputHandler, weightChangeHandler;
+
 const openAddToCartModal = (product, categoryId) => {
   currentProductToAdd = product;
   addToCartProductName.textContent = product.назва;
-
-  // Додаємо categoryId до об'єкта продукту
   product.categoryId = categoryId;
 
   quantityInput.classList.add('hidden');
   weightSelect.classList.add('hidden');
   weightSelect.innerHTML = '';
 
-  // Решта коду залишається без змін...
+  // Видаляємо попередні обробники подій
+  document.querySelector('.quantity-options .minus')?.removeEventListener('click', minusHandler);
+  document.querySelector('.quantity-options .plus')?.removeEventListener('click', plusHandler);
+  quantityInput.removeEventListener('input', inputHandler);
+  weightSelect.removeEventListener('change', weightChangeHandler);
+
+  const updatePrice = (quantity) => {
+    const discountInfo = getDiscountInfo(categoryId, product.назва, quantity);
+    const price = discountInfo ? discountInfo.discountPrice : product.ціна;
+    const totalPrice = (quantity * price).toFixed(2);
+    const originalPrice = (quantity * product.ціна).toFixed(2);
+
+    addToCartProductPrice.textContent = `${totalPrice} ₴`;
+    if (discountInfo) {
+      addToCartProductPrice.innerHTML += ` <span class="original-price">(${originalPrice} ₴)</span>`;
+    }
+  };
+
   if (product.варіанти && product.варіанти.length > 0) {
     weightSelect.classList.remove('hidden');
 
@@ -1075,61 +1151,51 @@ const openAddToCartModal = (product, categoryId) => {
     });
 
     const initialWeight = product.варіанти[0];
-    const discountInfo = getDiscountInfo(categoryId, product.назва, 1); // Використовуємо categoryId
-    const price = discountInfo ? discountInfo.discountPrice : product.ціна;
+    updatePrice(initialWeight);
 
-    addToCartProductPrice.textContent = `${(initialWeight * price).toFixed(
-      2
-    )} ₴`;
-    if (discountInfo) {
-      addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
-        initialWeight * product.ціна
-      ).toFixed(2)} ₴)</span>`;
-    }
-
-    weightSelect.addEventListener('change', (e) => {
+    weightChangeHandler = (e) => {
       const selectedWeight = parseFloat(e.target.value);
-      addToCartProductPrice.textContent = `${(selectedWeight * price).toFixed(
-        2
-      )} ₴`;
-      if (discountInfo) {
-        addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
-          selectedWeight * product.ціна
-        ).toFixed(2)} ₴)</span>`;
-      }
-    });
+      updatePrice(selectedWeight);
+    };
+    weightSelect.addEventListener('change', weightChangeHandler);
   } else {
-    quantityInput.classList.remove('hidden');
+    quantityInput.classList.remove('hidden');    
+    quantityInputMinus.classList.remove('hidden');
+    quantityInputPlus.classList.remove('hidden');
     quantityInput.value = 1;
+    updatePrice(1);
 
-    const discountInfo = getDiscountInfo(categoryId, product.назва, 1); // Використовуємо categoryId
-    const price = discountInfo ? discountInfo.discountPrice : product.ціна;
+    // Обробник для кнопки мінус
+    minusHandler = function() {
+      const input = this.nextElementSibling;
+      let newQuantity = parseInt(input.value) - 1;
+      if (newQuantity < 1) newQuantity = 1;
+      input.value = newQuantity;
+      updatePrice(newQuantity);
+    };
 
-    addToCartProductPrice.textContent = `${price} ₴`;
-    if (discountInfo) {
-      addToCartProductPrice.innerHTML += ` <span class="original-price">(${product.ціна} ₴)</span>`;
-    }
+    // Обробник для кнопки плюс
+    plusHandler = function() {
+      const input = this.previousElementSibling;
+      let newQuantity = parseInt(input.value) + 1;
+      if (newQuantity > 99) newQuantity = 99;
+      input.value = newQuantity;
+      updatePrice(newQuantity);
+    };
 
-    quantityInput.addEventListener('input', (e) => {
-      const qty = parseInt(e.target.value);
-      if (!isNaN(qty)) {
-        const qtyDiscountInfo = getDiscountInfo(
-          categoryId, // Використовуємо categoryId
-          product.назва,
-          qty
-        );
-        const qtyPrice = qtyDiscountInfo
-          ? qtyDiscountInfo.discountPrice
-          : product.ціна;
+    // Обробник для прямого вводу
+    inputHandler = (e) => {
+      let qty = parseInt(e.target.value);
+      if (isNaN(qty)) qty = 1;
+      if (qty < 1) qty = 1;
+      if (qty > 99) qty = 99;
+      e.target.value = qty;
+      updatePrice(qty);
+    };
 
-        addToCartProductPrice.textContent = `${(qty * qtyPrice).toFixed(2)} ₴`;
-        if (qtyDiscountInfo) {
-          addToCartProductPrice.innerHTML += ` <span class="original-price">(${(
-            qty * product.ціна
-          ).toFixed(2)} ₴)</span>`;
-        }
-      }
-    });
+    quantityInputMinus.addEventListener('click', minusHandler);
+    quantityInputPlus.addEventListener('click', plusHandler);
+    quantityInput.addEventListener('input', inputHandler);
   }
 
   openModal(addToCartModal);
@@ -1382,9 +1448,9 @@ const createProductCard = (product, index) => {
   card.innerHTML = `
     <div class="product-card-overlay-buttons">
       <button class="like-button" data-product-id="${product.id}"></button>
-      <button class="details-button" data-product-id="${
-        product.id
-      }"><i class="fas fa-info"></i></button>
+      <button class="details-button" data-product-id="${product.id}">
+        <i class="fas fa-info"></i>
+      </button>
     </div>
 
     <img
@@ -1395,7 +1461,7 @@ const createProductCard = (product, index) => {
 
     <h3>${product.назва}</h3>
     
-    <div>
+    <div class="product-card-footer">
       <div class="price-container">
         ${
           showOriginalPrice
@@ -1408,9 +1474,9 @@ const createProductCard = (product, index) => {
       </div>
 
       <div class="product-card-buttons">
-        <button class="buy-button" data-product-id="${
-          product.id
-        }">Замовити</button>
+        <button class="buy-button" data-product-id="${product.id}">
+          <i class="fas fa-cart-plus"></i>
+        </button>
       </div>
     </div>
   `;
@@ -1749,6 +1815,8 @@ const closeModal = (modalElement) => {
   body.style.overflow = ''; // Дозволяємо прокрутку фону
 };
 
+//! Модальне вікно деталей продукту
+
 /**
  * Відкриває модальне вікно деталей продукту.
  * @param {Object} product - Об'єкт товару.
@@ -1761,7 +1829,7 @@ const openProductDetailsModal = (product) => {
     cat.categoryList.some((item) => item.id === product.id)
   );
 
-  const kbzhvValues = product.кбжв ? product.кбжв.split(' / ') : [];
+  const kbzhwValues = product.кбжв ? product.кбжв.split(' / ') : [];
 
   // Отримуємо інформацію про акцію
   const discountInfo = getDiscountInfo(product.categoryId, product.назва);
@@ -1825,10 +1893,10 @@ const openProductDetailsModal = (product) => {
       ${product.опис ? `<p><strong>Опис:</strong> ${product.опис}</p>` : ''}
       ${product.склад ? `<p><strong>Склад:</strong> ${product.склад}</p>` : ''}
       ${product.кбжв ? `<p><strong>На 100г:</strong></p>` : ''}
-      ${product.кбжв ? `<p>Калорій - ${kbzhvValues[0]}</p>` : ''}
-      ${product.кбжв ? `<p>Білків - ${kbzhvValues[1]}</p>` : ''}
-      ${product.кбжв ? `<p>Жирів - ${kbzhvValues[2]}</p>` : ''}
-      ${product.кбжв ? `<p>Вуглеводів - ${kbzhvValues[3]}</p>` : ''}
+      ${product.кбжв ? `<p>Калорій - ${kbzhwValues[0]}</p>` : ''}
+      ${product.кбжв ? `<p>Білків - ${kbzhwValues[1]}</p>` : ''}
+      ${product.кбжв ? `<p>Жирів - ${kbzhwValues[2]}</p>` : ''}
+      ${product.кбжв ? `<p>Вуглеводів - ${kbzhwValues[3]}</p>` : ''}
       ${
         productCategory && productCategory.categoryDescription
           ? `
@@ -2094,6 +2162,220 @@ editOrder.addEventListener('click', () => {
   openModal(cartModal);
 });
 
+//! -- KBZHW Calculator --
+
+/**
+ * Об'єкт, що зберігає співвідношення БЖВ для різних цілей.
+ * Використовуємо середні значення з наданих діапазонів.
+ */
+const goalPresets = {
+  loseWeight: {
+    proteinRate: (1.8 + 2.2) / 2, // 2 г/кг
+    fatPercent: (25 + 30) / 2, // 27.5%
+    carbPercent: (40 + 50) / 2 // 45% (буде використано для розподілу решти калорій)
+  },
+  maintainWeight: {
+    proteinRate: (1.4 + 1.8) / 2, // 1.6 г/кг
+    fatPercent: 30, // 30%
+    carbPercent: 50 // 50%
+  },
+  gainWeight: {
+    proteinRate: (1.2 + 1.6) / 2, // 1.4 г/кг
+    fatPercent: (30 + 35) / 2, // 32.5%
+    carbPercent: (55 + 60) / 2 // 57.5%
+  }
+};
+
+/**
+ * Відкриває модальне вікно калькулятора КБЖВ
+ */
+function openKBZHWCalculatorModal() {
+  // Ensure modal element is referenced if not global
+  if (!kbzhwModal) {
+    kbzhwModal = document.getElementById('kbzhwModal');
+  }
+
+  if (!kbzhwModal) return;
+
+  // Assuming openModal function is defined elsewhere
+  // If you don't have openModal, you might need to define it or
+  // simply set modal.style.display = 'block';
+  if (typeof openModal === 'function') {
+    openModal(kbzhwModal);
+  } else {
+    kbzhwModal.style.display = 'block';
+  }
+
+  document.getElementById('kbzhwResults').style.display = 'none';
+  document.getElementById('kbzhwForm').reset();
+  // Set default values again after reset for consistency
+  document.getElementById('gender').value = 'female';
+  document.getElementById('age').value = '35';
+  document.getElementById('weight').value = '58';
+  document.getElementById('height').value = '165';
+  document.getElementById('diabetDisease').checked = false;
+  document.getElementById('goal').value = 'maintainWeight'; // Default goal
+  calculateAndDisplayKBZHW(); // Recalculate with default values
+}
+
+/**
+ * Обчислює добові норми КБЖВ з урахуванням усіх параметрів, включаючи діабет та ціль.
+ * @param {string} gender - Стать ('male' або 'female').
+ * @param {number} age - Вік (років).
+ * @param {number} weight - Вага (кг).
+ * @param {number} height - Зріст (см).
+ * @param {number} activity - Коефіцієнт активності.
+ * @param {string} goal - Обрана ціль ('loseWeight', 'maintainWeight', 'gainWeight').
+ * @param {boolean} diabetDisease - Чи є діабет.
+ * @returns {Object} Об'єкт з розрахованими значеннями {calories, proteins, fats, carbs}
+ */
+function calculateKBZHWFull(gender, age, weight, height, activity, goal, diabetDisease) {
+  // Отримуємо значення БЖВ з об'єкта goalPresets
+  const {
+    proteinRate,
+    fatPercent,
+    // carbPercent is not directly used for calculation as carbs are remaining calories
+    // but it's good to have it here if you decide to use a different calculation method later.
+  } = goalPresets[goal];
+
+  let bmr; // Basal Metabolic Rate
+  if (gender === 'male') {
+    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+  } else {
+    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+  }
+
+  let totalCalories = bmr * activity;
+
+  // Коригування калорій в залежності від цілі
+  if (goal === 'loseWeight') {
+    totalCalories *= 0.8; // Зменшуємо на 20%
+  } else if (goal === 'gainWeight') {
+    totalCalories *= 1.15; // Збільшуємо на 15%
+  }
+
+  // Коригування калорій при діабеті (приблизне)
+  if (diabetDisease) {
+    totalCalories *= 0.9; // Зменшуємо на 10% як приклад
+  }
+
+  const proteinsGrams = proteinRate * weight; // Білки в грамах
+
+  // Жири в грамах (відсоток від загальних калорій)
+  const fatsGrams = (totalCalories * (fatPercent / 100)) / 9;
+
+  // Вуглеводи в грамах (решта калорій після білків та жирів)
+  // Важливо: перевіряємо, щоб не вийшло від'ємне значення
+  let carbsGrams = (totalCalories - (proteinsGrams * 4 + fatsGrams * 9)) / 4;
+  if (carbsGrams < 0) carbsGrams = 0; // Не допускаємо від'ємних вуглеводів
+
+  return {
+    calories: Math.round(totalCalories),
+    proteins: Math.round(proteinsGrams),
+    fats: Math.round(fatsGrams),
+    carbs: Math.round(carbsGrams)
+  };
+}
+
+
+/**
+ * Зчитує дані з форми, виконує розрахунки та відображає результати.
+ */
+function calculateAndDisplayKBZHW() {
+  const gender = document.getElementById('gender').value;
+  const age = +document.getElementById('age').value;
+  const weight = +document.getElementById('weight').value;
+  const height = +document.getElementById('height').value;
+  const activity = +document.getElementById('activity').value;
+  const goal = document.getElementById('goal').value; // Отримуємо обрану ціль
+  const diabetDisease = document.getElementById('diabetDisease').checked;
+
+  const result = calculateKBZHWFull(
+    gender,
+    age,
+    weight,
+    height,
+    activity,
+    goal,
+    diabetDisease
+  );
+
+  document.getElementById('calories').textContent = result.calories;
+  document.getElementById('proteins').textContent = result.proteins;
+  document.getElementById('fats').textContent = result.fats;
+  document.getElementById('carbs').textContent = result.carbs;
+  document.getElementById('kbzhwResults').style.display = 'block';
+
+  // Ensure kbzhwModal is referenced here too
+  if (!kbzhwModal) {
+    kbzhwModal = document.getElementById('kbzhwModal');
+  }
+  if (kbzhwModal && kbzhwModal.style.display === 'block') {
+    document.getElementById('kbzhwResults').scrollIntoView({
+      behavior: 'smooth',
+    });
+  }
+}
+
+/**
+ * Ініціалізує калькулятор КБЖВ, встановлює початкові значення та обробники подій.
+ */
+function kbzhwCalculatorInit() {
+  const kbzhwForm = document.getElementById('kbzhwForm');
+
+  if (!kbzhwForm) {
+    console.error('KBZHW form not found! Make sure an element with ID "kbzhwForm" exists.');
+    return;
+  }
+
+  // Set initial values for an average healthy woman
+  document.getElementById('gender').value = 'female';
+  document.getElementById('age').value = '35';
+  document.getElementById('weight').value = '58';
+  document.getElementById('height').value = '165';
+  document.getElementById('diabetDisease').checked = false; // No diabetes
+  document.getElementById('goal').value = 'maintainWeight'; // Default goal: Підтримка
+
+  // Immediately calculate and display results for initial values
+  calculateAndDisplayKBZHW();
+
+  // --- Add event listeners for instant recalculation ---
+  const inputsToWatch = [
+    'gender',
+    'age',
+    'weight',
+    'height',
+    'activity',
+    'goal', // <--- THIS IS THE FIX! Added 'goal' to the array.
+    'diabetDisease',
+  ];
+
+  inputsToWatch.forEach((id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      // Use 'input' for number fields, 'change' for select/checkbox
+      if (element.type === 'number') { // Changed from text/number to just number for precision
+        element.addEventListener('input', calculateAndDisplayKBZHW);
+      } else if (element.type === 'checkbox' || element.tagName === 'SELECT') {
+        element.addEventListener('change', calculateAndDisplayKBZHW);
+      }
+    } else {
+      console.warn(`Element with ID '${id}' not found for event listening.`);
+    }
+  });
+  // --- End of instant recalculation listeners ---
+
+  // Add a submit event listener as a fallback or for explicit calculation button
+  kbzhwForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent default form submission
+    calculateAndDisplayKBZHW();
+  });
+
+  
+  openkbzhwModalBtn.addEventListener('click', openKBZHWCalculatorModal);
+  document.querySelector('.openkbzhwModalBtn').addEventListener('click', openKBZHWCalculatorModal);
+}
+
 //! --- Ініціалізація сторінки ---
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -2116,4 +2398,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const productId = button.dataset.productId;
     updateLikeButtonIcon(button, productId);
   });
+
+  // Ініціалізація калькулятора
+  kbzhwCalculatorInit();
 });
