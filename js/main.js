@@ -2370,7 +2370,6 @@ function kbzhwCalculatorInit() {
     e.preventDefault(); // Prevent default form submission
     calculateAndDisplayKBZHW();
   });
-
   
   openkbzhwModalBtn.addEventListener('click', openKBZHWCalculatorModal);
   document.querySelector('.openkbzhwModalBtn').addEventListener('click', openKBZHWCalculatorModal);
@@ -2387,9 +2386,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .flatMap((cat) => cat.categoryList)
     .filter((p) => likedIds.includes(p.id));
 
-  // 2. Now call all functions that depend on fully loaded data
-  updateLikedProductsCount(); // Will now reflect the actual liked products
-  updateCartCount(); // Ensure cart count is also updated (already correct based on `loadCart()`)
+  // 2. Call all functions that depend on fully loaded data
+  updateLikedProductsCount();
+  updateCartCount();
 
   populateHeroSlider();
   populateMobileMenuCategories();
